@@ -31,12 +31,7 @@ WebUI.navigateToUrl(url.toExternalForm())
 
 WebUI.verifyElementPresent(findTestObject('47NEWS/a_TOP'), 10)
 
-// take screen shot and save it into search_form.png file
-/*
-Path fileNamedByURL = mr.resolveScreenshotPath(GlobalVariable.CURRENT_TESTCASE_ID, url)
-CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
-	fileNamedByURL.toFile())
- */
+// take screenshot and save it into a file under the ./Materials folder
 Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID,
 	"47NEWS_TOP.png")
 CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
