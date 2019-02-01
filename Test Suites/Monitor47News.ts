@@ -14,6 +14,12 @@
       <guid>42cfbf79-67a0-400a-b228-631b02b79737</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/visit47NEWS</testCaseId>
+      <testCaseId>Test Cases/main/visitSite</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>3ce63474-2a66-4e2f-8349-6740e3032bbb</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/main/backupTSuiteResult</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>

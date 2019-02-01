@@ -5,6 +5,11 @@
    <tag></tag>
    <defaultProfile>true</defaultProfile>
    <GlobalVariableEntity>
+      <description>e.g, Monitor47News</description>
+      <initValue>''</initValue>
+      <name>CURRENT_TESTSUITE_ID</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
       <description>e.g, &quot;TC1&quot;</description>
       <initValue>''</initValue>
       <name>CURRENT_TESTCASE_ID</name>
@@ -18,10 +23,5 @@
       <description>to be initialized by Test Listener</description>
       <initValue>null</initValue>
       <name>MATERIAL_STORAGE</name>
-   </GlobalVariableEntity>
-   <GlobalVariableEntity>
-      <description></description>
-      <initValue>'https://www.msn.com/ja-jp/'</initValue>
-      <name>Hostname</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>
