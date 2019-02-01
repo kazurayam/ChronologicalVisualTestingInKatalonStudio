@@ -10,9 +10,14 @@
       <name>CURRENT_TESTCASE_ID</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
-      <description></description>
+      <description>to be initialized by Test Listener</description>
       <initValue>null</initValue>
       <name>MATERIAL_REPOSITORY</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description>to be initialized by Test Listener</description>
+      <initValue>null</initValue>
+      <name>MATERIAL_STORAGE</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
