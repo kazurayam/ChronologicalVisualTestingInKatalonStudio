@@ -19,7 +19,7 @@ import internal.GlobalVariable as GlobalVariable
 def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
-	WebUI.verifyElementPresent(findTestObject('47NEWS/a_TOP'), 10)
+	WebUI.verifyElementPresent(findTestObject('47NEWS/div_main-post01'), 10)
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
