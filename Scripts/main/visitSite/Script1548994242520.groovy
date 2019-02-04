@@ -23,7 +23,8 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
-		fileNamedFixed.toFile())
+		fileNamedFixed.toFile(),
+		1000)
 }
 
 // prepare environement
@@ -34,7 +35,7 @@ WebUI.openBrowser('')
 
 // give tall enough view port.
 // this is necessary because the AUT uses a fixed/sticky footer.
-WebUI.setViewPortSize(1280, 3400)
+WebUI.setViewPortSize(1280, 4000)
 
 // visit pages and take screenshots
 visitPage(mr, new URL('https://www.47news.jp/'), '47NEWS_TOP.png')
