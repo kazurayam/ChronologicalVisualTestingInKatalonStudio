@@ -23,9 +23,11 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	WebUI.verifyElementPresent(findTestObject('47NEWS/div_main-post01'), 10)
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
-	Options options = new Options.Builder().timeout(200).
+	Options options = new Options.Builder().timeout(500).
+						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-post02')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-bnr')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_sidebar')).
+						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_footer-ad')).
 						build()
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
 		fileNamedFixed.toFile(),
@@ -38,9 +40,8 @@ MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
 // open browser
 WebUI.openBrowser('')
 
-// give tall enough view port.
-// this is necessary because the AUT uses a fixed/sticky footer.
-WebUI.setViewPortSize(1280, 4000)
+// set appropriate window size
+WebUI.maximizeWindow()
 
 // visit pages and take screenshots
 visitPage(mr, new URL('https://www.47news.jp/'), '47NEWS_TOP.png')
