@@ -3,6 +3,7 @@ import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 import java.nio.file.Path as Path
 
 import com.kazurayam.materials.MaterialRepository
+import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -22,9 +23,13 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	WebUI.verifyElementPresent(findTestObject('47NEWS/div_main-post01'), 10)
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
+	Options options = new Options.Builder().timeout(200).
+						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-bnr')).
+						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_sidebar')).
+						build()
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
 		fileNamedFixed.toFile(),
-		1000)
+		options)
 }
 
 // prepare environement

@@ -37,7 +37,7 @@ switch(STRATEGY) {
 		count = ms.restoreUnary(mr, tsn, RetrievalBy.before(base))
 		break
 		
-	case 'lastEveningAt18':
+	case '18pmLastEvening':
 	    // restore the shot of last evenng 18:00 or older
 	    LocalDateTime base = LocalDateTime.now().minusDays(1)
 		count = ms.restoreUnary(mr, tsn, RetrievalBy.before(base, 18, 0, 0))
