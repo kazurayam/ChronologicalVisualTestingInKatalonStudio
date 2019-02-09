@@ -13,7 +13,7 @@
             <runConfigurationId>Firefox (headless)</runConfigurationId>
          </configuration>
          <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/Monitor47News_compareAgainstPreviousShot</testSuiteEntity>
+         <testSuiteEntity>Test Suites/TS_Monitor47News</testSuiteEntity>
       </TestSuiteRunConfiguration>
       <TestSuiteRunConfiguration>
          <configuration>
