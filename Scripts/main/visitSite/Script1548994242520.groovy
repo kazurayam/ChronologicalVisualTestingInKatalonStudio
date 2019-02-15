@@ -1,10 +1,11 @@
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 
 import java.nio.file.Path as Path
-
+import org.openqa.selenium.JavascriptExecutor
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.webui.driver.DriverFactory
 
 import internal.GlobalVariable as GlobalVariable
 
@@ -21,6 +22,13 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
 	WebUI.verifyElementPresent(findTestObject('47NEWS/div_main-post01'), 10)
+	//
+	// modify the style of <div class="global-nav fixed"> to have position:static
+	// to make the screenshot pretty looking
+	JavascriptExecutor js = (JavascriptExecutor)DriverFactory.getWebDriver()
+	js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
+		".innerHTML = \".fixed {position: static !important; }\"")
+	
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
 	Options options = new Options.Builder().timeout(500).
