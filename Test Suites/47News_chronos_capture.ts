@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>TS_47News_capture</name>
+   <name>47News_chronos_capture</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -10,12 +10,6 @@
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <testSuiteGuid>73449b19-1840-467f-9fa8-79628a4a958f</testSuiteGuid>
-   <testCaseLink>
-      <guid>4c5986c5-ddb0-4721-8432-7989d07fa1d2</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/main/cleanMaterials</testCaseId>
-   </testCaseLink>
    <testCaseLink>
       <guid>42cfbf79-67a0-400a-b228-631b02b79737</guid>
       <isReuseDriver>false</isReuseDriver>

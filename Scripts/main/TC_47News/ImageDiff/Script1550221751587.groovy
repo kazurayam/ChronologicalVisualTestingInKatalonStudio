@@ -13,8 +13,8 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * This test case makes no interaction with web.
  */
 
-WebUI.callTestCase(findTestCase('main/ImageDiff_module'),
+WebUI.callTestCase(findTestCase('main/ImageDiff_body'),
 	[
-		'TESTSUITE_ID': 'TS_47News_capture',
-		'CRITERIA_PERCENTAGE': 2.5
+		'TESTSUITE_ID': '47News_chronos_capture',
+		'CRITERIA_PERCENTAGE': 2.0
 	])

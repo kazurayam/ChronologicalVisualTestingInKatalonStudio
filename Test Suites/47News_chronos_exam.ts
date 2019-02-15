@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>TS_47News_diff</name>
+   <name>47News_chronos_exam</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -33,11 +33,5 @@
          <value></value>
          <variableId>237cf6aa-8c63-42d8-91b1-d5eeb5ede5de</variableId>
       </variableLink>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>9d17b5b1-efe9-4a42-bd87-18337862a06e</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/main/makeIndex</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>
