@@ -13,7 +13,7 @@
             <runConfigurationId>Firefox (headless)</runConfigurationId>
          </configuration>
          <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/TS_Monitor47News</testSuiteEntity>
+         <testSuiteEntity>Test Suites/TS_47News_capture</testSuiteEntity>
       </TestSuiteRunConfiguration>
       <TestSuiteRunConfiguration>
          <configuration>
@@ -22,16 +22,7 @@
             <runConfigurationId>Firefox (headless)</runConfigurationId>
          </configuration>
          <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/ImageDiff</testSuiteEntity>
-      </TestSuiteRunConfiguration>
-      <TestSuiteRunConfiguration>
-         <configuration>
-            <groupName>Web Desktop</groupName>
-            <profileName>default</profileName>
-            <runConfigurationId>Firefox (headless)</runConfigurationId>
-         </configuration>
-         <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/makeIndex</testSuiteEntity>
+         <testSuiteEntity>Test Suites/TS_47News_diff</testSuiteEntity>
       </TestSuiteRunConfiguration>
    </testSuiteRunConfigurations>
 </TestSuiteCollectionEntity>

@@ -29,7 +29,7 @@ assert mr != null
 // The 1st and 2nd latest TSuiteResult 'Test Suites/Monitor47News' are looked up.
 // The list will be filtered to include PNG files only.
 List<MaterialPair> materialPairs = mr.createMaterialPairs(
-		new TSuiteName('Test Suites/Monitor47News_compareAgainstPreviousShot')
+		new TSuiteName( TESTSUITE_ID )
 		).stream().filter { mp ->
 			mp.getLeft().getFileType() == FileType.PNG
 		}.collect(Collectors.toList())
@@ -43,5 +43,5 @@ Assert.assertTrue(">>> materialPairs.size() is 0. there must be something wrong.
 new ImageCollectionDiffer(mr).makeImageCollectionDifferences(
 		materialPairs,
 		new TCaseName(GlobalVariable.CURRENT_TESTCASE_ID),  // 'Test Cases/main/ImageDiff'
-		30.0)  // criteriaPercent; will fail if any materialPair has difference greater thatn 30.0%
+		CRITERIA_PERCENTAGE )  // criteriaPercent; will fail if any materialPair has difference greater thatn 30.0%
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>ImageDiff_module</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>ba95d077-8f8e-4d9a-bc2b-9823d03a348e</testCaseGuid>
+   <variable>
+      <defaultValue>'TS_Monitor47News'</defaultValue>
+      <description></description>
+      <id>58d023b2-138d-48af-8963-b17b619f2e93</id>
+      <masked>false</masked>
+      <name>TESTSUITE_ID</name>
+   </variable>
+   <variable>
+      <defaultValue>5.0</defaultValue>
+      <description></description>
+      <id>79186d6d-2db9-4e85-ac8c-d4abb38d4bbd</id>
+      <masked>false</masked>
+      <name>CRITERIA_PERCENTAGE</name>
+   </variable>
+</TestCaseEntity>

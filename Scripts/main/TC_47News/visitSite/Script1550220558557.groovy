@@ -28,6 +28,7 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	JavascriptExecutor js = (JavascriptExecutor)DriverFactory.getWebDriver()
 	js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
 		".innerHTML = \".fixed {position: static !important; }\"")
+	WebUI.delay(1)
 	
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)

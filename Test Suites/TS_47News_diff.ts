@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuiteEntity>
+   <description></description>
+   <name>TS_47News_diff</name>
+   <tag></tag>
+   <isRerun>false</isRerun>
+   <mailRecipient></mailRecipient>
+   <numberOfRerun>0</numberOfRerun>
+   <pageLoadTimeout>30</pageLoadTimeout>
+   <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
+   <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
+   <testSuiteGuid>e960d843-3c33-469d-ae99-63c44d94863c</testSuiteGuid>
+   <testCaseLink>
+      <guid>73ab2aa7-93e8-464f-9d6d-014cde191fdd</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/main/TC_47News/ImageDiff</testCaseId>
+      <variableLink>
+         <testDataLinkId></testDataLinkId>
+         <type>DEFAULT</type>
+         <value></value>
+         <variableId>0e20d530-2d16-4d4e-afa2-8b003b9e12e5</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId></testDataLinkId>
+         <type>DEFAULT</type>
+         <value></value>
+         <variableId>313559ac-0239-4380-a767-80e459bb8167</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId></testDataLinkId>
+         <type>DEFAULT</type>
+         <value></value>
+         <variableId>237cf6aa-8c63-42d8-91b1-d5eeb5ede5de</variableId>
+      </variableLink>
+   </testCaseLink>
+   <testCaseLink>
+      <guid>9d17b5b1-efe9-4a42-bd87-18337862a06e</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/main/makeIndex</testCaseId>
+   </testCaseLink>
+</TestSuiteEntity>
