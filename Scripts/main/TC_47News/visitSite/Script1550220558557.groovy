@@ -28,7 +28,8 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	JavascriptExecutor js = (JavascriptExecutor)DriverFactory.getWebDriver()
 	js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
 		".innerHTML = \".fixed {position: static !important; }\"")
-	WebUI.delay(1)
+	
+	WebUI.delay(2)
 	
 	// take screenshot and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
@@ -50,7 +51,7 @@ MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
 WebUI.openBrowser('')
 
 // set appropriate window size
-WebUI.maximizeWindow()
+WebUI.setViewPortSize(1280, 800)
 
 // visit pages and take screenshots
 visitPage(mr, new URL('https://www.47news.jp/'), '47NEWS_TOP.png')
