@@ -1,11 +1,14 @@
 import java.util.stream.Collectors
 
 import com.kazurayam.ksbackyard.Assert
-import com.kazurayam.ksbackyard.ImageCollectionDiffer
+import com.kazurayam.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.ExecutionProfile
 import com.kazurayam.materials.FileType
+import com.kazurayam.materials.ImageDeltaStats
 import com.kazurayam.materials.MaterialPair
 import com.kazurayam.materials.MaterialRepository
+import com.kazurayam.materials.MaterialStorage
+import com.kazurayam.materials.stats.StorageScanner
 import com.kazurayam.materials.TCaseName
 import com.kazurayam.materials.TSuiteName
 import com.kms.katalon.core.model.FailureHandling
@@ -39,9 +42,22 @@ Assert.assertTrue(">>> materialPairs.size() is 0. there must be something wrong.
 	materialPairs.size() > 0,
 	FailureHandling.STOP_ON_FAILURE)
 
+// scan the Storage directory to prepare a ImageDiffStats object
+MaterialStorage ms = (MaterialStorage)GlobalVariable.MATERIAL_STORAGE
+StorageScanner storageScanner = 
+	new StorageScanner(
+		ms,
+		new StorageScanner.Options.Builder().
+			defaultCriteriaPercentage(CRITERIA_PERCENTAGE).
+			build())
+
+// calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
+ImageDeltaStats imageDeltaStats = storageScanner.scan(new TSuiteName( TESTSUITE_ID ))
+
 // make ImageDiff files in the ./Materials/ImageDiff directory
 new ImageCollectionDiffer(mr).makeImageCollectionDifferences(
 		materialPairs,
 		new TCaseName(GlobalVariable.CURRENT_TESTCASE_ID),  // 'Test Cases/main/ImageDiff'
-		CRITERIA_PERCENTAGE )  // criteriaPercent; will fail if any materialPair has difference greater thatn 30.0%
+		imageDeltaStats	
+	)
 
