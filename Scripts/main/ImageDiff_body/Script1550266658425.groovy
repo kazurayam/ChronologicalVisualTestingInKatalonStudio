@@ -1,5 +1,7 @@
 import java.util.stream.Collectors
 
+import java.nio.file.Path
+
 import com.kazurayam.ksbackyard.Assert
 import com.kazurayam.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.ExecutionProfile
@@ -54,10 +56,15 @@ StorageScanner storageScanner =
 // calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
 ImageDeltaStats imageDeltaStats = storageScanner.scan(new TSuiteName( TESTSUITE_ID ))
 
+// save the ImageDeltaStats into ./Materials/image-delta-stats.json for later reference
+Path imageDeltaStatsJson = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, 'image-delta-stats.json')
+imageDeltaStats.write(imageDeltaStatsJson)
+
 // make ImageDiff files in the ./Materials/ImageDiff directory
 new ImageCollectionDiffer(mr).makeImageCollectionDifferences(
 		materialPairs,
 		new TCaseName(GlobalVariable.CURRENT_TESTCASE_ID),  // 'Test Cases/main/ImageDiff'
 		imageDeltaStats	
 	)
+
 
