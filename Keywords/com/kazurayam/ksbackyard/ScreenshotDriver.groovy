@@ -14,8 +14,8 @@ import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 
-import com.kazurayam.imagedifference.ImageDifference
-import com.kazurayam.imagedifference.ImageDifferenceSerializer
+import com.kazurayam.materials.imagedifference.ImageDifference
+import com.kazurayam.materials.imagedifference.ImageDifferenceSerializer
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling

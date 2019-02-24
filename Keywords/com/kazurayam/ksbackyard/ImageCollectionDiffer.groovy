@@ -1,7 +1,7 @@
 package com.kazurayam.ksbackyard
 
-import com.kazurayam.imagedifference.ImageCollectionDiffer as ICD
-import com.kazurayam.imagedifference.VisualTestingListener
+import com.kazurayam.materials.imagedifference.ImageCollectionDiffer as ICD
+import com.kazurayam.materials.imagedifference.VisualTestingListener
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.Material
 import com.kazurayam.materials.MaterialPair

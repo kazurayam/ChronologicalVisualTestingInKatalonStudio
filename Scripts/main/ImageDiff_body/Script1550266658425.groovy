@@ -1,18 +1,16 @@
+import java.nio.file.Path
 import java.util.stream.Collectors
 
-import java.nio.file.Path
-
 import com.kazurayam.ksbackyard.Assert
-import com.kazurayam.imagedifference.ImageCollectionDiffer
-import com.kazurayam.materials.ExecutionProfile
 import com.kazurayam.materials.FileType
 import com.kazurayam.materials.ImageDeltaStats
 import com.kazurayam.materials.MaterialPair
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
-import com.kazurayam.materials.stats.StorageScanner
 import com.kazurayam.materials.TCaseName
 import com.kazurayam.materials.TSuiteName
+import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
+import com.kazurayam.materials.stats.StorageScanner
 import com.kms.katalon.core.model.FailureHandling
 
 import internal.GlobalVariable
@@ -51,6 +49,7 @@ StorageScanner storageScanner =
 		ms,
 		new StorageScanner.Options.Builder().
 			defaultCriteriaPercentage(CRITERIA_PERCENTAGE).
+			filterDataLessThan(3.0).
 			build())
 
 // calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
@@ -64,7 +63,7 @@ imageDeltaStats.write(imageDeltaStatsJson)
 new ImageCollectionDiffer(mr).makeImageCollectionDifferences(
 		materialPairs,
 		new TCaseName(GlobalVariable.CURRENT_TESTCASE_ID),  // 'Test Cases/main/ImageDiff'
-		imageDeltaStats	
+		imageDeltaStats
 	)
 
 
