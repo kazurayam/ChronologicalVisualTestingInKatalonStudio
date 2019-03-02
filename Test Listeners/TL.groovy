@@ -39,6 +39,8 @@ class TL {
 			def testSuiteId = testSuiteContext.getTestSuiteId()            // e.g. 'Test Suites/TS1'
 			def testSuiteTimestamp = reportDir.getFileName().toString()    // e.g. '20180618_165141'
 			WebUI.comment(">>> testSuiteId is '${testSuiteId}', testSuiteTimestamp is '${testSuiteTimestamp}'")
+			GlobalVariable.CURRENT_TESTSUITE_ID = testSuiteId
+			GlobalVariable.CURRENT_TESTSUITE_TIMESTAMP = testSuiteTimestamp
 			// initializing MaterialRepository
 			Files.createDirectories(materialsDir)
 			MaterialRepository mr = MaterialRepositoryFactory.createInstance(materialsDir)

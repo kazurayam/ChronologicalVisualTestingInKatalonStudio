@@ -6,7 +6,7 @@
    <defaultProfile>true</defaultProfile>
    <GlobalVariableEntity>
       <description>e.g, Monitor47News</description>
-      <initValue>''</initValue>
+      <initValue>'_'</initValue>
       <name>CURRENT_TESTSUITE_ID</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -23,5 +23,10 @@
       <description>to be initialized by Test Listener</description>
       <initValue>null</initValue>
       <name>MATERIAL_STORAGE</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'_'</initValue>
+      <name>CURRENT_TESTSUITE_TIMESTAMP</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>

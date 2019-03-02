@@ -17,6 +17,6 @@
       <description></description>
       <id>79186d6d-2db9-4e85-ac8c-d4abb38d4bbd</id>
       <masked>false</masked>
-      <name>CRITERIA_PERCENTAGE</name>
+      <name>SHIFT_CRITERIA_PERCENTAGE_BY</name>
    </variable>
 </TestCaseEntity>

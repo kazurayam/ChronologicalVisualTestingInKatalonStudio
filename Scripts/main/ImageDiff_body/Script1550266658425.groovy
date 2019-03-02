@@ -3,13 +3,14 @@ import java.util.stream.Collectors
 
 import com.kazurayam.ksbackyard.Assert
 import com.kazurayam.materials.FileType
-import com.kazurayam.materials.ImageDeltaStats
 import com.kazurayam.materials.MaterialPair
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TCaseName
 import com.kazurayam.materials.TSuiteName
+import com.kazurayam.materials.TSuiteTimestamp
 import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
+import com.kazurayam.materials.stats.ImageDeltaStats
 import com.kazurayam.materials.stats.StorageScanner
 import com.kms.katalon.core.model.FailureHandling
 
@@ -44,20 +45,29 @@ Assert.assertTrue(">>> materialPairs.size() is 0. there must be something wrong.
 
 // scan the Storage directory to prepare a ImageDiffStats object
 MaterialStorage ms = (MaterialStorage)GlobalVariable.MATERIAL_STORAGE
+
+TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable.CURRENT_TESTSUITE_ID )
+TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable.CURRENT_TESTSUITE_TIMESTAMP )
+TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable.CURRENT_TESTCASE_ID  )
+Path previousIDS = StorageScanner.findLatestImageDeltaStats(ms, tSuiteNameExam, tCaseNameExam)
+
 StorageScanner storageScanner = 
 	new StorageScanner(
 		ms,
 		new StorageScanner.Options.Builder().
-			defaultCriteriaPercentage(CRITERIA_PERCENTAGE).
-			filterDataLessThan(3.0).
+		    previousImageDeltaStats(previousIDS).
+			shiftCriteriaPercentageBy( SHIFT_CRITERIA_PERCENTAGE_BY ).
+			filterDataLessThan(5.0).
 			build())
 
 // calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
 ImageDeltaStats imageDeltaStats = storageScanner.scan(new TSuiteName( TESTSUITE_ID ))
 
-// save the ImageDeltaStats into ./Materials/image-delta-stats.json for later reference
-Path imageDeltaStatsJson = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, 'image-delta-stats.json')
-imageDeltaStats.write(imageDeltaStatsJson)
+// persit the imageDeltaStats of this time into disk. It will be reused as previousIDS when this script run next time
+storageScanner.persist(imageDeltaStats, tSuiteNameExam, tSuiteTimestampExam, tCaseNameExam)
+
+// copy the ImageDeltaStats into ./Materials/image-delta-stats.json for later reference
+imageDeltaStats.write(mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, 'image-delta-stats.json'))
 
 // make ImageDiff files in the ./Materials/ImageDiff directory
 new ImageCollectionDiffer(mr).makeImageCollectionDifferences(
