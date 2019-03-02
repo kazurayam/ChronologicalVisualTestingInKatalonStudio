@@ -1,0 +1,3 @@
+import com.kazurayam.visualtesting.GlobalVariableHelpersTest
+
+CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(GlobalVariableHelpersTest.class)
