@@ -22,19 +22,18 @@ public class CollectiveImageDiffer {
 
 	private MaterialRepository mr
 	private TSuiteName capturingTSuiteName
-	
+
 	CollectiveImageDiffer(MaterialRepository mr, TSuiteName capturingTSuiteName) {
 		Objects.requireNonNull(mr, "mr must not be null")
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		this.mr                  = mr
 		this.capturingTSuiteName = capturingTSuiteName
-		
 	}
 
 
-	public void chronos(MaterialRepository mr, TSuiteName examiningTSuiteName, 
-						MaterialStorage ms,
-						ChronosOptions options) {
+	public void chronos(MaterialRepository mr, TSuiteName examiningTSuiteName,
+			MaterialStorage ms,
+			ChronosOptions options) {
 		Objects.requireNonNull(mr, "mr must not be null")
 		Objects.requireNonNull(examiningTSuiteName, "examiningTSuiteName must not be null")
 		Objects.requireNonNull(ms, "ms must not be null")
@@ -54,7 +53,7 @@ public class CollectiveImageDiffer {
 	 * @param criteriaPercentage
 	 */
 	public void twins(MaterialRepository mr, TSuiteName examiningTSuiteName,
-						double criteriaPercentage) {
+			double criteriaPercentage) {
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(mr)
 		icDiffer.makeImageCollectionDifferences(
 				this.createMaterialPairs(examiningTSuiteName, mr),
@@ -77,8 +76,8 @@ public class CollectiveImageDiffer {
 
 		if (materialPairs.size() == 0) {
 			KeywordUtil.markFailedAndStop(
-				">>> The capturingTSuiteName is \"${capturingTSuiteName.getId()}\"" + 
-				", which has materialPairs.size() of 0.")
+					">>> The capturingTSuiteName is \"${capturingTSuiteName.getId()}\"" +
+					", which has materialPairs.size() of 0.")
 		}
 
 		return materialPairs
@@ -89,17 +88,17 @@ public class CollectiveImageDiffer {
 	 * @return
 	 */
 	private ImageDeltaStats createImageDeltaStats(MaterialStorage ms,
-													TSuiteName capturingTSuiteName,
-													ChronosOptions options ) {
+			TSuiteName capturingTSuiteName,
+			ChronosOptions options ) {
 		TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable[GVName.CURRENT_TESTSUITE_ID]        )
 		TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP] )
 		TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable[GVName.CURRENT_TESTCASE_ID]         )
 		Path previousIDS = StorageScanner.findLatestImageDeltaStats(ms, tSuiteNameExam, tCaseNameExam)
 		//
 		StorageScanner storageScanner =
-		new StorageScanner(
-			ms,
-			new StorageScanner.Options.Builder().
+				new StorageScanner(
+				ms,
+				new StorageScanner.Options.Builder().
 				previousImageDeltaStats( previousIDS ).
 				filterDataLessThan( options.getFilterDataLessThan() ).
 				shiftCriteriaPercentageBy( options.getShiftCriteriaPercentageBy() ).
@@ -121,7 +120,7 @@ public class CollectiveImageDiffer {
 	static class ChronosOptions {
 		private double filterDataLessThan
 		private double shiftCriteriaPercentageBy
-		
+
 		static class Builder {
 			private double filterDataLessThan
 			private double shiftCriteriaPercentageBy
@@ -153,25 +152,25 @@ public class CollectiveImageDiffer {
 				return new ChronosOptions(this)
 			}
 		}
-		
+
 		private ChronosOptions(Builder builder) {
 			this.filterDataLessThan = builder.filterDataLessThan
 			this.shiftCriteriaPercentageBy = builder.filterDataLessThan
 		}
-		
+
 		double getFilterDataLessThan() {
 			return this.filterDataLessThan
 		}
-		
+
 		double getShiftCriteriaPercentageBy() {
 			return this.shiftCriteriaPercentageBy
 		}
-		
+
 		@Override
 		String toString() {
 			this.toJsonText()
 		}
-		
+
 		String toJsonText() {
 			StringBuilder sb = new StringBuilder()
 			sb.append("{")
@@ -185,5 +184,5 @@ public class CollectiveImageDiffer {
 			sb.append("}")
 			return sb.toString()
 		}
-	}												
+	}
 }
