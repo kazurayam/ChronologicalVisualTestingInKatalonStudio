@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.stream.Collectors
 
 import com.kazurayam.ksbackyard.Assert
@@ -51,14 +52,18 @@ TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable.CURREN
 TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable.CURRENT_TESTCASE_ID  )
 Path previousIDS = StorageScanner.findLatestImageDeltaStats(ms, tSuiteNameExam, tCaseNameExam)
 
-StorageScanner storageScanner = 
-	new StorageScanner(
-		ms,
-		new StorageScanner.Options.Builder().
-		    previousImageDeltaStats(previousIDS).
+println "#imageDiff_body previousIDS is ${previousIDS.toString()}"
+println "#imageDiff_body Paths.get('.').toAbsolutePath() is ${Paths.get('.').toAbsolutePath()}"
+
+StorageScanner.Options options = new StorageScanner.Options.Builder().
+		    previousImageDeltaStats( previousIDS ).
 			shiftCriteriaPercentageBy( SHIFT_CRITERIA_PERCENTAGE_BY ).
 			filterDataLessThan(5.0).
-			build())
+			build()
+
+println "#imageDiff_body options.getPreviousImageDeltaStats() is ${options.getPreviousImageDeltaStats().toString()}"
+
+StorageScanner storageScanner = new StorageScanner(ms, options)
 
 // calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
 ImageDeltaStats imageDeltaStats = storageScanner.scan(new TSuiteName( TESTSUITE_ID ))
