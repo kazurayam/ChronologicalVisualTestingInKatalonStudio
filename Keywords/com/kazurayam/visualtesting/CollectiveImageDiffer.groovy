@@ -27,20 +27,25 @@ public class CollectiveImageDiffer {
 		Objects.requireNonNull(mr, "mr must not be null")
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		this.mr_                  = mr
+		this.mr_.putCurrentTestSuite(
+					GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
+					GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
 		this.capturingTSuiteName_ = capturingTSuiteName
 	}
 
-	public void chronos(MaterialStorage ms, TSuiteName examiningTSuiteName, ChronosOptions options) {
+	public void chronos(MaterialStorage ms, ChronosOptions options) {
 		Objects.requireNonNull(ms, "ms must not be null")
-		Objects.requireNonNull(examiningTSuiteName, "examiningTSuiteName must not be null")
 		Objects.requireNonNull(options, "options must not be null")
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, this.capturingTSuiteName_, options)
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
-		List<MaterialPair> materialPairs = this.createMaterialPairs(this.capturingTSuiteName_, this.mr_) 
+		List<MaterialPair> materialPairs = 
+						this.createMaterialPairs(this.capturingTSuiteName_, this.mr_)
 		icDiffer.makeImageCollectionDifferences(
 				materialPairs,
 				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
+		// diff image files are written under 
+		// the Materials/<CURRENT_TESTSUITE_ID/<CURRENT_TESTSUITE_TIMESTAMP> directory
 	}
 
 	/**
@@ -49,7 +54,7 @@ public class CollectiveImageDiffer {
 	 * @param mr
 	 * @param criteriaPercentage
 	 */
-	public void twins(MaterialRepository mr, double criteriaPercentage) {
+	public void twins(double criteriaPercentage) {
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(mr)
 		icDiffer.makeImageCollectionDifferences(
 				this.createMaterialPairs(this.capturingTSuiteName_, mr),
