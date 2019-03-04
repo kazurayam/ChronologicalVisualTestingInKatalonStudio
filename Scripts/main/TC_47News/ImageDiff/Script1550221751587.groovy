@@ -3,7 +3,7 @@ import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 /**
- * StepByStep/step10_ImageDiff
+ * main/TC_47News/ImageDiff
  *
  * This test case reads 2 sets of PNG files and creates a set of PNG files.
  *
