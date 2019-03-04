@@ -18,7 +18,6 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable
 
-
 public class CollectiveImageDiffer {
 
 	private MaterialRepository mr_
@@ -27,6 +26,7 @@ public class CollectiveImageDiffer {
 	CollectiveImageDiffer(MaterialRepository mr) {
 		Objects.requireNonNull(mr, "mr must not be null")
 		this.mr_                  = mr
+		// MaterialRepository#putCurrentTestSuite() is called to decide where to save the image diff files
 		this.mr_.putCurrentTestSuite(
 				GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
 				GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
@@ -63,7 +63,7 @@ public class CollectiveImageDiffer {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		//
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
-		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr)
+		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
 		icDiffer.makeImageCollectionDifferences(
 				materialPairs,

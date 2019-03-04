@@ -9,7 +9,6 @@ import java.nio.file.Paths
 import java.util.stream.Collectors
 
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -22,10 +21,12 @@ import com.kazurayam.materials.MaterialStorageFactory
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.visualtesting.CollectiveImageDiffer.ChronosOptions
 import com.kms.katalon.core.configuration.RunConfiguration
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 @RunWith(JUnit4.class)
 class CollectiveImageDifferTest {
 
+	private Path specOutputDir
 	private Path testOutputDir
 	private Path fixtureDir
 
@@ -33,14 +34,16 @@ class CollectiveImageDifferTest {
 	void setup() {
 		Path projectDir = Paths.get(RunConfiguration.getProjectDir())
 		fixtureDir = projectDir.resolve('Include').resolve('fixture')
-		testOutputDir = projectDir.resolve('tmp').resolve('testOutput')
+		testOutputDir = projectDir.resolve('build').resolve('tmp').resolve('testOutput')
 		Helpers.deleteDirectoryContents(testOutputDir)
+		specOutputDir = testOutputDir.resolve('CollectiveImageDifferTest')
+		Files.createDirectories(specOutputDir)
 	}
 
 	@Test
 	void testChronos_normal() {
 		// setup:
-		Path caseOutputDir = testOutputDir.resolve('testChronos')
+		Path caseOutputDir = specOutputDir.resolve('testChronos_normal')
 		Files.createDirectories(caseOutputDir)
 		Helpers.copyDirectory(fixtureDir, caseOutputDir)
 		Path materialsDir = caseOutputDir.resolve('Materials')
@@ -50,14 +53,14 @@ class CollectiveImageDifferTest {
 		Helpers.copyDirectory(storageDir, materialsDir)  //
 		MaterialRepository mr = MaterialRepositoryFactory.createInstance(materialsDir, reportsDir)
 		TSuiteName capturingTSuiteName = new TSuiteName('47News_chronos_capture')
-		CollectiveImageDiffer cid = new CollectiveImageDiffer(mr)
+		CollectiveImageDiffer collectiveImageDiffer = new CollectiveImageDiffer(mr)
 		//
 		MaterialStorage ms = MaterialStorageFactory.createInstance(storageDir)
 		ChronosOptions chronosOptions = new ChronosOptions.Builder().
 				filterDataLessThan(5.0).
 				shiftCriteriaPercentageBy(10.0).
 				build()
-		cid.chronos(capturingTSuiteName, ms, chronosOptions)
+		collectiveImageDiffer.chronos(capturingTSuiteName, ms, chronosOptions)
 		//
 		Path dir = materialsDir.resolve('_').resolve('_').
 				resolve('test.com.kazurayam.visualtesting.CollectiveImageDifferTestRunner').
@@ -66,12 +69,35 @@ class CollectiveImageDifferTest {
 		List<Path> files = Files.list(dir).collect(Collectors.toList());
 		assertThat(files.size(), is(1))
 		Path png = files.get(0)
-		println png.getFileName()
 		assertThat(png.getFileName().toString(), endsWith('FAILED.png'))
+		WebUI.comment(">>> ${png.getFileName()}")
 	}
 
-	@Ignore
 	@Test
 	void testTwins() {
+		// setup:
+		Path caseOutputDir = specOutputDir.resolve('testTwins')
+		Files.createDirectories(caseOutputDir)
+		Helpers.copyDirectory(fixtureDir, caseOutputDir)
+		Path materialsDir = caseOutputDir.resolve('Materials')
+		Path reportsDir   = caseOutputDir.resolve('Reports')
+		Path storageDir   = caseOutputDir.resolve('Storage')
+		// when:
+		Helpers.copyDirectory(storageDir, materialsDir)  //
+		MaterialRepository mr = MaterialRepositoryFactory.createInstance(materialsDir, reportsDir)
+		TSuiteName capturingTSuiteName = new TSuiteName('47News_chronos_capture')
+		CollectiveImageDiffer collectiveImageDiffer = new CollectiveImageDiffer(mr)
+		//
+		collectiveImageDiffer.twins(capturingTSuiteName, 10.0)  // the only differences is the 2nd argument
+		//
+		Path dir = materialsDir.resolve('_').resolve('_').
+		resolve('test.com.kazurayam.visualtesting.CollectiveImageDifferTestRunner').
+		resolve('main.TC_47News.visitSite')
+		assertThat(Files.exists(dir), is(true))
+		List<Path> files = Files.list(dir).collect(Collectors.toList());
+		assertThat(files.size(), is(1))
+		Path png = files.get(0)
+		assertThat(png.getFileName().toString(), endsWith('FAILED.png'))
+		WebUI.comment(">>> ${png.getFileName()}")
 	}
 }

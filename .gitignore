@@ -10,10 +10,11 @@
 /\.settings/
 /bin/lib/
 /Libs/
+/bin/
 
 ## I do not want Reports/Materials/Storage to be published to remote Git repository
 /Reports/
 /Materials/
 /Storage/
 /tmp/
-/bin/
+/build/
