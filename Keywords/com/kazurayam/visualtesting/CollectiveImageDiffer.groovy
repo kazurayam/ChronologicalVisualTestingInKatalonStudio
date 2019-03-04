@@ -20,29 +20,26 @@ import internal.GlobalVariable
 
 public class CollectiveImageDiffer {
 
-	private MaterialRepository mr
-	private TSuiteName capturingTSuiteName
+	private MaterialRepository mr_
+	private TSuiteName capturingTSuiteName_
 
 	CollectiveImageDiffer(MaterialRepository mr, TSuiteName capturingTSuiteName) {
 		Objects.requireNonNull(mr, "mr must not be null")
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
-		this.mr                  = mr
-		this.capturingTSuiteName = capturingTSuiteName
+		this.mr_                  = mr
+		this.capturingTSuiteName_ = capturingTSuiteName
 	}
 
-
-	public void chronos(MaterialRepository mr, TSuiteName examiningTSuiteName,
-			MaterialStorage ms,
-			ChronosOptions options) {
-		Objects.requireNonNull(mr, "mr must not be null")
-		Objects.requireNonNull(examiningTSuiteName, "examiningTSuiteName must not be null")
+	public void chronos(MaterialStorage ms, TSuiteName examiningTSuiteName, ChronosOptions options) {
 		Objects.requireNonNull(ms, "ms must not be null")
+		Objects.requireNonNull(examiningTSuiteName, "examiningTSuiteName must not be null")
 		Objects.requireNonNull(options, "options must not be null")
-		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
-		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(mr)
+		ImageDeltaStats stats = this.createImageDeltaStats(ms, this.capturingTSuiteName_, options)
+		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
+		List<MaterialPair> materialPairs = this.createMaterialPairs(this.capturingTSuiteName_, this.mr_) 
 		icDiffer.makeImageCollectionDifferences(
-				this.createMaterialPairs(examiningTSuiteName, mr),
-				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID] ),
+				materialPairs,
+				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
 	}
 
@@ -52,12 +49,11 @@ public class CollectiveImageDiffer {
 	 * @param mr
 	 * @param criteriaPercentage
 	 */
-	public void twins(MaterialRepository mr, TSuiteName examiningTSuiteName,
-			double criteriaPercentage) {
+	public void twins(MaterialRepository mr, double criteriaPercentage) {
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(mr)
 		icDiffer.makeImageCollectionDifferences(
-				this.createMaterialPairs(examiningTSuiteName, mr),
-				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID] ),
+				this.createMaterialPairs(this.capturingTSuiteName_, mr),
+				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
 
@@ -90,9 +86,9 @@ public class CollectiveImageDiffer {
 	private ImageDeltaStats createImageDeltaStats(MaterialStorage ms,
 			TSuiteName capturingTSuiteName,
 			ChronosOptions options ) {
-		TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable[GVName.CURRENT_TESTSUITE_ID]        )
-		TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP] )
-		TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable[GVName.CURRENT_TESTCASE_ID]         )
+		TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()]        )
+		TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
+		TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()]         )
 		Path previousIDS = StorageScanner.findLatestImageDeltaStats(ms, tSuiteNameExam, tCaseNameExam)
 		//
 		StorageScanner storageScanner =
