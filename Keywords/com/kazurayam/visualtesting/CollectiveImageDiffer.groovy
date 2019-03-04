@@ -14,6 +14,7 @@ import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.stats.ImageDeltaStats
 import com.kazurayam.materials.stats.StorageScanner
 import com.kms.katalon.core.util.KeywordUtil
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable
 
@@ -28,8 +29,8 @@ public class CollectiveImageDiffer {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		this.mr_                  = mr
 		this.mr_.putCurrentTestSuite(
-					GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
-					GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
+				GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
+				GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
 		this.capturingTSuiteName_ = capturingTSuiteName
 	}
 
@@ -38,14 +39,13 @@ public class CollectiveImageDiffer {
 		Objects.requireNonNull(options, "options must not be null")
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, this.capturingTSuiteName_, options)
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
-		List<MaterialPair> materialPairs = 
-						this.createMaterialPairs(this.capturingTSuiteName_, this.mr_)
+		List<MaterialPair> materialPairs =
+				this.createMaterialPairs(this.capturingTSuiteName_, this.mr_)
+		WebUI.comment(">>> diff images will be written into ${mr_.getCurrentTestSuiteDirectory().toString()}")		
 		icDiffer.makeImageCollectionDifferences(
 				materialPairs,
 				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
-		// diff image files are written under 
-		// the Materials/<CURRENT_TESTSUITE_ID/<CURRENT_TESTSUITE_TIMESTAMP> directory
 	}
 
 	/**
