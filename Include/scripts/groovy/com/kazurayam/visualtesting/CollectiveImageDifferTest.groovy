@@ -36,7 +36,7 @@ class CollectiveImageDifferTest {
 		testOutputDir = projectDir.resolve('tmp').resolve('testOutput')
 		Helpers.deleteDirectoryContents(testOutputDir)
 	}
-	
+
 	@Test
 	void testChronos_normal() {
 		// setup:
@@ -50,19 +50,18 @@ class CollectiveImageDifferTest {
 		Helpers.copyDirectory(storageDir, materialsDir)  //
 		MaterialRepository mr = MaterialRepositoryFactory.createInstance(materialsDir, reportsDir)
 		TSuiteName capturingTSuiteName = new TSuiteName('47News_chronos_capture')
-		CollectiveImageDiffer cid = new CollectiveImageDiffer(mr, capturingTSuiteName)
+		CollectiveImageDiffer cid = new CollectiveImageDiffer(mr)
 		//
 		MaterialStorage ms = MaterialStorageFactory.createInstance(storageDir)
 		ChronosOptions chronosOptions = new ChronosOptions.Builder().
-											filterDataLessThan(5.0).
-											shiftCriteriaPercentageBy(10.0).
-											build()
-		TSuiteName examiningTSuiteName = new TSuiteName('47News_chronos_exam')
-		cid.chronos(ms, examiningTSuiteName, chronosOptions)
+				filterDataLessThan(5.0).
+				shiftCriteriaPercentageBy(10.0).
+				build()
+		cid.chronos(capturingTSuiteName, ms, chronosOptions)
 		//
 		Path dir = materialsDir.resolve('_').resolve('_').
-					resolve('test.com.kazurayam.visualtesting.CollectiveImageDifferTestRunner').
-					resolve('main.TC_47News.visitSite')
+				resolve('test.com.kazurayam.visualtesting.CollectiveImageDifferTestRunner').
+				resolve('main.TC_47News.visitSite')
 		assertThat(Files.exists(dir), is(true))
 		List<Path> files = Files.list(dir).collect(Collectors.toList());
 		assertThat(files.size(), is(1))
@@ -70,10 +69,9 @@ class CollectiveImageDifferTest {
 		println png.getFileName()
 		assertThat(png.getFileName().toString(), endsWith('FAILED.png'))
 	}
-	
+
 	@Ignore
 	@Test
 	void testTwins() {
 	}
-
 }

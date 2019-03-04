@@ -24,24 +24,29 @@ public class CollectiveImageDiffer {
 	private MaterialRepository mr_
 	private TSuiteName capturingTSuiteName_
 
-	CollectiveImageDiffer(MaterialRepository mr, TSuiteName capturingTSuiteName) {
+	CollectiveImageDiffer(MaterialRepository mr) {
 		Objects.requireNonNull(mr, "mr must not be null")
-		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		this.mr_                  = mr
 		this.mr_.putCurrentTestSuite(
 				GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
 				GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
-		this.capturingTSuiteName_ = capturingTSuiteName
 	}
 
-	public void chronos(MaterialStorage ms, ChronosOptions options) {
+	/**
+	 * 
+	 * @param capturingTSuiteName
+	 * @param ms
+	 * @param options
+	 */
+	public void chronos(TSuiteName capturingTSuiteName, MaterialStorage ms, ChronosOptions options) {
+		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		Objects.requireNonNull(ms, "ms must not be null")
 		Objects.requireNonNull(options, "options must not be null")
-		ImageDeltaStats stats = this.createImageDeltaStats(ms, this.capturingTSuiteName_, options)
+		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
+		//
+		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
-		List<MaterialPair> materialPairs =
-				this.createMaterialPairs(this.capturingTSuiteName_, this.mr_)
-		WebUI.comment(">>> diff images will be written into ${mr_.getCurrentTestSuiteDirectory().toString()}")		
+		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
 		icDiffer.makeImageCollectionDifferences(
 				materialPairs,
 				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
@@ -54,10 +59,14 @@ public class CollectiveImageDiffer {
 	 * @param mr
 	 * @param criteriaPercentage
 	 */
-	public void twins(double criteriaPercentage) {
-		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(mr)
+	public void twins(TSuiteName capturingTSuiteName, double criteriaPercentage) {
+		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
+		//
+		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
+		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr)
+		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
 		icDiffer.makeImageCollectionDifferences(
-				this.createMaterialPairs(this.capturingTSuiteName_, mr),
+				materialPairs,
 				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
@@ -68,7 +77,7 @@ public class CollectiveImageDiffer {
 	 * @param mr
 	 * @return
 	 */
-	private List<MaterialPair> createMaterialPairs(TSuiteName capturingTSuiteName, MaterialRepository mr) {
+	private List<MaterialPair> createMaterialPairs(MaterialRepository mr, TSuiteName capturingTSuiteName) {
 		List<MaterialPair> materialPairs = mr.createMaterialPairs(
 				capturingTSuiteName
 				).stream().filter { mp ->
