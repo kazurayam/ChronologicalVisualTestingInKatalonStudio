@@ -16,5 +16,5 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 WebUI.callTestCase(findTestCase('main/ImageDiff_body'),
 	[
 		'TESTSUITE_ID': '47News_chronos_capture',
-		'CRITERIA_PERCENTAGE': 2.0
+		'SHIFT_CRITERIA_PERCENTAGE_BY': 2.0
 	])

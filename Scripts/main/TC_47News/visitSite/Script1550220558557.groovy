@@ -1,11 +1,15 @@
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 
 import java.nio.file.Path as Path
+
 import org.openqa.selenium.JavascriptExecutor
-import com.kazurayam.materials.MaterialRepository
+import org.openqa.selenium.WebDriver
+
 import com.kazurayam.ksbackyard.ScreenshotDriver.Options
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kazurayam.materials.MaterialRepository
+import com.kazurayam.webdriverfactory4ks.ChromeDriverFactory
 import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
 
@@ -48,7 +52,11 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
 
 // open browser
-WebUI.openBrowser('')
+//WebUI.openBrowser('')
+ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
+assert driver != null
+DriverFactory.changeWebDriver(driver)
 
 // set appropriate window size
 WebUI.setViewPortSize(1280, 800)
