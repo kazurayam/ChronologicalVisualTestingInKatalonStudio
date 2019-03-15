@@ -13,6 +13,7 @@ import com.kazurayam.materials.TSuiteTimestamp
 import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.stats.ImageDeltaStats
 import com.kazurayam.materials.stats.StorageScanner
+import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
 
 import internal.GlobalVariable
@@ -56,6 +57,7 @@ println "#imageDiff_body previousIDS is ${previousIDS.toString()}"
 println "#imageDiff_body Paths.get('.').toAbsolutePath() is ${Paths.get('.').toAbsolutePath()}"
 
 StorageScanner.Options options = new StorageScanner.Options.Builder().
+			projectDirectory( Paths.get(RunConfiguration.getProjectDir()) ).
 		    previousImageDeltaStats( previousIDS ).
 			shiftCriteriaPercentageBy( SHIFT_CRITERIA_PERCENTAGE_BY ).
 			filterDataLessThan(5.0).

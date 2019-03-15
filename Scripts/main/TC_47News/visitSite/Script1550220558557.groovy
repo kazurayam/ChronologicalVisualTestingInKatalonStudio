@@ -33,15 +33,16 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
 		".innerHTML = \".fixed {position: static !important; }\"")
 	
-	WebUI.delay(2)
+	WebUI.delay(3)
 	
-	// take screenshot and save it into a file under the ./Materials folder
+	// take screenshot with width=640 px and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
 	Options options = new Options.Builder().timeout(500).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-post02')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-bnr')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_sidebar')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_footer-ad')).
+						width(640).
 						build()
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
 		fileNamedFixed.toFile(),
@@ -54,7 +55,7 @@ MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
 // open browser
 //WebUI.openBrowser('')
 ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
+WebDriver driver = cdFactory.openChromeDriver()
 assert driver != null
 DriverFactory.changeWebDriver(driver)
 
