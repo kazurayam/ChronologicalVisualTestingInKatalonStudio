@@ -91,8 +91,8 @@ class CollectiveImageDifferTest {
 		collectiveImageDiffer.twins(capturingTSuiteName, 10.0)  // the only differences is the 2nd argument
 		//
 		Path dir = materialsDir.resolve('_').resolve('_').
-		resolve('test.com.kazurayam.visualtesting.CollectiveImageDifferTestRunner').
-		resolve('main.TC_47News.visitSite')
+				resolve('test.com.kazurayam.visualtesting.CollectiveImageDifferTestRunner').
+				resolve('main.TC_47News.visitSite')
 		assertThat(Files.exists(dir), is(true))
 		List<Path> files = Files.list(dir).collect(Collectors.toList());
 		assertThat(files.size(), is(1))
