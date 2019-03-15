@@ -1,0 +1,42 @@
+[
+    {
+        "ComparisonResult": {
+            "expectedMaterial": {
+                "Material": {
+                    "url": "null",
+                    "suffix": "",
+                    "fileType": {
+                        "FileType": {
+                            "extension": "png",
+                            "mimeTypes": [
+                                "image/png"
+                            ]
+                        }
+                    },
+                    "path": "C:\\Users\\qcq0264\\katalon-workspace\\ChronologicalVisualTestingInKatalonStudio\\Materials\\47News_chronos_capture\\20190315_134120\\main.TC_47News.visitSite\\47NEWS_TOP.png",
+                    "lastModified": "2019-03-15T04:42:03.090"
+                }
+            },
+            "actualMaterial": {
+                "Material": {
+                    "url": "null",
+                    "suffix": "",
+                    "fileType": {
+                        "FileType": {
+                            "extension": "png",
+                            "mimeTypes": [
+                                "image/png"
+                            ]
+                        }
+                    },
+                    "path": "C:\\Users\\qcq0264\\katalon-workspace\\ChronologicalVisualTestingInKatalonStudio\\Materials\\47News_chronos_capture\\20190315_162435\\main.TC_47News.visitSite\\47NEWS_TOP.png",
+                    "lastModified": "2019-03-15T07:25:08.012"
+                }
+            },
+            "criteriaPercentage": 43.57745690808574,
+            "imagesAreSimilar": true,
+            "diffRatio": 31.87,
+            "diff": "C:\\Users\\qcq0264\\katalon-workspace\\ChronologicalVisualTestingInKatalonStudio\\Materials\\47News_chronos_exam\\20190315_162436\\main.TC_47News.ImageDiff\\main.TC_47News.visitSite\\47NEWS_TOP.20190315_134120_default-20190315_162435_default.(31.87).png"
+        }
+    }
+]

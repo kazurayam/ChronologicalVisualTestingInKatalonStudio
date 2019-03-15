@@ -1,0 +1,65 @@
+{
+    "storageScannerOptions": {
+        "shiftCriteriaPercentageBy": 2.0,
+        "filterDataLessThan": 5.0,
+        "maximumNumberOfImageDeltas": 10,
+        "onlySince": "19990101_000000",
+        "onlySinceInclusive": true,
+        "probability": 0.95,
+        "projectDirectory": "C:\\Users\\qcq0264\\katalon-workspace\\ChronologicalVisualTestingInKatalonStudio",
+        "previousImageDeltaStats": "Storage\\47News_chronos_exam\\20190315_133413\\main.TC_47News.ImageDiff\\image-delta-stats.json"
+    },
+    "imageDeltaStatsEntries": [
+        {
+            "TSuiteName": "47News_chronos_capture",
+            "materialStatsList": [
+                {
+                    "path": "main.TC_47News.visitSite/47NEWS_TOP.png",
+                    "degree": 3,
+                    "sum": 124.3,
+                    "mean": 41.43333333333333,
+                    "variance": 5.427995841437106,
+                    "standardDeviation": 2.3298059664781325,
+                    "tDistribution": 2.9199855803537322,
+                    "confidenceInterval": {
+                        "lowerBound": 37.50561955183809,
+                        "uppderBound": 45.36104711482857,
+                        "confidenceLevel": 0.95
+                    },
+                    "criteriaPercentage": 47.36,
+                    "data": [
+                        6.09,
+                        29.46,
+                        88.75
+                    ],
+                    "imageDeltaList": [
+                        {
+                            "a": "20190315_134120",
+                            "b": "20190315_133413",
+                            "d": 6.09,
+                            "cached": false
+                        },
+                        {
+                            "a": "20190315_133413",
+                            "b": "20190315_094918",
+                            "d": 29.46,
+                            "cached": true
+                        },
+                        {
+                            "a": "20190315_094918",
+                            "b": "20190315_094655",
+                            "d": 1.11,
+                            "cached": true
+                        },
+                        {
+                            "a": "20190315_094655",
+                            "b": "20190314_183405",
+                            "d": 88.75,
+                            "cached": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
