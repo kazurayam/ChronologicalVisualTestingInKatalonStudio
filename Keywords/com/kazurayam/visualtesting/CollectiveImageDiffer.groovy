@@ -42,8 +42,12 @@ public class CollectiveImageDiffer {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		Objects.requireNonNull(ms, "ms must not be null")
 		Objects.requireNonNull(options, "options must not be null")
+		
+		// scan the 'Storage' directory to get the statistics of previous runs 
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
-		//
+		
+		// make image diffs, write the result into the directory named
+		// 'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>' 
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
@@ -70,31 +74,9 @@ public class CollectiveImageDiffer {
 				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
-
+	
 	/**
-	 * 
-	 * @param tSuiteName
-	 * @param mr
-	 * @return
-	 */
-	private List<MaterialPair> createMaterialPairs(MaterialRepository mr, TSuiteName capturingTSuiteName) {
-		List<MaterialPair> materialPairs = mr.createMaterialPairs(
-				capturingTSuiteName
-				).stream().filter { mp ->
-					mp.getLeft().getFileType() == FileType.PNG
-				}.collect(Collectors.toList())
-
-		if (materialPairs.size() == 0) {
-			KeywordUtil.markFailedAndStop(
-					">>> The capturingTSuiteName is \"${capturingTSuiteName.getId()}\"" +
-					", which has materialPairs.size() of 0.")
-		}
-
-		return materialPairs
-	}
-
-	/**
-	 * 
+	 *
 	 * @return
 	 */
 	private ImageDeltaStats createImageDeltaStats(MaterialStorage ms,
@@ -123,6 +105,29 @@ public class CollectiveImageDiffer {
 		//
 		return imageDeltaStats
 	}
+
+	/**
+	 * 
+	 * @param tSuiteName
+	 * @param mr
+	 * @return
+	 */
+	private List<MaterialPair> createMaterialPairs(MaterialRepository mr, TSuiteName capturingTSuiteName) {
+		List<MaterialPair> materialPairs = mr.createMaterialPairs(
+				capturingTSuiteName
+				).stream().filter { mp ->
+					mp.getLeft().getFileType() == FileType.PNG
+				}.collect(Collectors.toList())
+
+		if (materialPairs.size() == 0) {
+			KeywordUtil.markFailedAndStop(
+					">>> The capturingTSuiteName is \"${capturingTSuiteName.getId()}\"" +
+					", which has materialPairs.size() of 0.")
+		}
+
+		return materialPairs
+	}
+
 
 	/**
 	 *

@@ -42,7 +42,7 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-bnr')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_sidebar')).
 						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_footer-ad')).
-						width(640).
+						// width(640).
 						build()
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
 		fileNamedFixed.toFile(),
