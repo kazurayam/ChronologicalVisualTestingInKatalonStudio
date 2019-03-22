@@ -26,7 +26,7 @@ public class GlobalVariableHelpers {
 		mc.'static'."${getterName}" = {-> return value }
 		mc.'static'."${name}"       = value
 	}
-	
+
 	static void addGlobalVariable(GVName gvName, Object value) {
 		addGlobalVariable(gvName.getName(), value)
 	}
@@ -38,7 +38,7 @@ public class GlobalVariableHelpers {
 		return internal.GlobalVariable.metaClass.hasProperty( internal.GlobalVariable, name ) &&
 				internal.GlobalVariable.name
 	}
-	
+
 	static boolean isGlobalVariablePresent(GVName gvName) {
 		return isGlobalVariablePresent(gvName.getName())
 	}
