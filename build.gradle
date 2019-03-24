@@ -11,7 +11,7 @@ dependencies {
     runtime group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     //
-    runtime group: 'com.kazurayam', name: 'Materials', version: '0.54.0'
+    //runtime group: 'com.kazurayam', name: 'Materials', version: '0.54.0'
 }
 
 repositories {
@@ -42,7 +42,51 @@ configurations {
     runtime.exclude group: 'org.slf4j',                 module: 'slf4j-api'
 }
 
+
+/**
+ * deleteJarsInDriversDir
+ */
+task deleteJarsInDriversDir(type: Delete) {
+    delete fileTree('Drivers') {
+        include '**/*.jar'
+    }
+}
+
+/**
+ * downloadDrivers
+ */
 task downloadDrivers(type: Copy) {
     from sourceSets.main.runtimeClasspath
     into 'Drivers/'
+}
+
+
+/**
+ * downloadPlugins
+ */
+import java.nio.file.Path
+import java.nio.file.Paths
+def downloadFile = { String remoteUrl, String localDir ->
+    Path outFile = Paths.get(localDir).resolve("${remoteUrl.tokenize('/')[-1]}")
+    outFile.toFile().withOutputStream { out ->
+        new URL(remoteUrl).withInputStream { from ->
+            out << from
+        }
+    }
+}
+
+task downloadPlugins {
+    doLast {
+        downloadFile('https://github.com/kazurayam/ksbackyard/releases/download/0.34.0/ksbackyard-all.jar', 'Drivers/')
+        downloadFile('https://github.com/kazurayam/Materials/releases/download/0.54.0/Materials-0.54.0.jar', 'Drivers/')
+
+    }
+}
+
+task drivers {
+    dependsOn 'deleteJarsInDriversDir'
+    dependsOn 'downloadDrivers'
+    dependsOn 'downloadPlugins'
+    tasks.findByName('downloadDrivers').mustRunAfter 'deleteJarsInDriversDir'
+    tasks.findByName('downloadPlugins').mustRunAfter 'deleteJarsInDriversDir'
 }

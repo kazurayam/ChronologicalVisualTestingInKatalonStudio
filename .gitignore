@@ -21,3 +21,6 @@
 
 ## gradle
 /.gradle/
+
+## Drivers dir is updated by gradle.build#drivers task
+/Drivers/
