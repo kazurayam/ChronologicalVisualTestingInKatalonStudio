@@ -1,0 +1,48 @@
+apply plugin: 'groovy'
+
+dependencies {
+    // https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot
+    runtime group: 'ru.yandex.qatools.ashot', name: 'ashot', version: '1.5.4'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    runtime group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    runtime group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+
+    //
+    runtime group: 'com.kazurayam', name: 'Materials', version: '0.54.0'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+}
+
+configurations {
+    runtime.exclude group: 'cglib',                     module: 'cglib'
+    runtime.exclude group: 'org.apache.commons',        module: 'commons-codec'
+    runtime.exclude group: 'org.apache.commons',        module: 'commons-exec'
+    runtime.exclude group: 'commons-io',                module: 'commons-io'
+    runtime.exclude group: 'org.apache.commons',        module: 'commons-logging'
+    runtime.exclude group: 'org.apache.commons',        module: 'commons-codec'
+    runtime.exclude group: 'org.codehaus.groovy',       module: 'groovy-all'
+    runtime.exclude group: 'com.google.code.gson',      module: 'gson'
+    runtime.exclude group: 'com.google.guava',          module: 'guava'
+    runtime.exclude group: 'org.hamcrest',              module: 'hamcrest-core'
+    runtime.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    runtime.exclude group: 'org.apache.httpcomponents', module: 'httpcore'
+    runtime.exclude group: 'net.java.dev.jna',          module: 'jna'
+    runtime.exclude group: 'net.java.dev.jna',          module: 'jna-platform'
+    runtime.exclude group: 'ch.qos.logback',            module: 'logback-classic'
+    runtime.exclude group: 'ch.qos.logback',            module: 'logback-core'
+    runtime.exclude group: 'org.seleniumhq.selenium',   module: 'selenium-api'
+    runtime.exclude group: 'org.seleniumhq.selenium',   module: 'selenium-remote-driver'
+    runtime.exclude group: 'org.slf4j',                 module: 'slf4j-api'
+}
+
+task downloadDrivers(type: Copy) {
+    from sourceSets.main.runtimeClasspath
+    into 'Drivers/'
+}
