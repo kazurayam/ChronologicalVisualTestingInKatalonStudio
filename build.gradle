@@ -1,5 +1,8 @@
 apply plugin: 'groovy'
 
+group = 'com.kazurayam'
+version = '0.4.0'
+
 dependencies {
     // https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot
     runtime group: 'ru.yandex.qatools.ashot', name: 'ashot', version: '1.5.4'
