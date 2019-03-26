@@ -4,6 +4,7 @@ import com.kazurayam.materials.TSuiteName
 import com.kazurayam.visualtesting.ImageCollectionDifferRunner
 import com.kazurayam.visualtesting.ImageCollectionDifferRunner.ChronosOptions
 
+import com.kms.katalon.core.util.KeywordUtil
 import internal.GlobalVariable as GlobalVariable
 
 /*
@@ -33,5 +34,8 @@ ChronosOptions options =
 
 ImageCollectionDifferRunner runner = new ImageCollectionDifferRunner(mr)
 
-runner.chronos(new TSuiteName(TESTSUITE_ID), ms, options)
+boolean result = runner.chronos(new TSuiteName(TESTSUITE_ID), ms, options)
 
+if (! result ) {
+	KeywordUtil.markFailed("One or more pairs of screenshot are different.")
+}

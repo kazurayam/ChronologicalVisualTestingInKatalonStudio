@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver
 
 import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kazurayam.materials.MaterialRepository
-import com.kazurayam.webdriverfactory4ks.ChromeDriverFactory
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -53,11 +52,7 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
 
 // open browser
-//WebUI.openBrowser('')
-ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-WebDriver driver = cdFactory.openChromeDriver()
-assert driver != null
-DriverFactory.changeWebDriver(driver)
+WebUI.openBrowser('')
 
 // set appropriate window size
 WebUI.setViewPortSize(1280, 800)

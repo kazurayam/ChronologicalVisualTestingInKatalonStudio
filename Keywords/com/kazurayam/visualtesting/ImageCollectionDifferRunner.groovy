@@ -38,22 +38,18 @@ public class ImageCollectionDifferRunner {
 	 * @param ms
 	 * @param options
 	 */
-	public void chronos(TSuiteName capturingTSuiteName, MaterialStorage ms, ChronosOptions options) {
+	public boolean chronos(TSuiteName capturingTSuiteName, MaterialStorage ms, ChronosOptions options) {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		Objects.requireNonNull(ms, "ms must not be null")
 		Objects.requireNonNull(options, "options must not be null")
-
 		// scan the 'Storage' directory to get the statistics of previous runs
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
-
 		// make image diffs, write the result into the directory named
 		// 'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>'
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		icDiffer.makeImageCollectionDifferences(
-				materialPairs,
-				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+		return icDiffer.chronos(materialPairs, new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
 	}
 
@@ -63,15 +59,12 @@ public class ImageCollectionDifferRunner {
 	 * @param mr
 	 * @param criteriaPercentage
 	 */
-	public void twins(TSuiteName capturingTSuiteName, double criteriaPercentage) {
+	public boolean twins(TSuiteName capturingTSuiteName, double criteriaPercentage) {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
-		//
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		icDiffer.makeImageCollectionDifferences(
-				materialPairs,
-				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+		return icDiffer.twins(materialPairs,new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
 
