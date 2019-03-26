@@ -25,14 +25,13 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
 	WebUI.verifyElementPresent(findTestObject('47NEWS/div_main-post01'), 10)
-	//
+	WebUI.delay(1)
+	
 	// modify the style of <div class="global-nav fixed"> to have position:static
 	// to make the screenshot pretty looking
-	JavascriptExecutor js = (JavascriptExecutor)DriverFactory.getWebDriver()
-	js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
-		".innerHTML = \".fixed {position: static !important; }\"")
-	
-	WebUI.delay(3)
+	//JavascriptExecutor js = (JavascriptExecutor)DriverFactory.getWebDriver()
+	//js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
+	//	".innerHTML = \".fixed {position: static !important; }\"")
 	
 	// take screenshot with width=640 px and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
