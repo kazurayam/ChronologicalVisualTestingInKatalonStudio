@@ -10,6 +10,7 @@ import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TCaseName
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.TSuiteTimestamp
+import com.kazurayam.materials.VisualTestingLogger
 import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.stats.ImageDeltaStats
 import com.kazurayam.materials.stats.StorageScanner
@@ -22,6 +23,7 @@ public class ImageCollectionDifferRunner {
 
 	private MaterialRepository mr_
 	private TSuiteName capturingTSuiteName_
+	private VisualTestingLogger logger_
 
 	ImageCollectionDifferRunner(MaterialRepository mr) {
 		Objects.requireNonNull(mr, "mr must not be null")
@@ -30,6 +32,10 @@ public class ImageCollectionDifferRunner {
 		this.mr_.putCurrentTestSuite(
 				GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
 				GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
+	}
+
+	void setVisualTestingLogger(VisualTestingLogger logger) {
+		this.logger_ = logger
 	}
 
 	/**
@@ -47,9 +53,12 @@ public class ImageCollectionDifferRunner {
 		// make image diffs, write the result into the directory named
 		// 'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>'
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
-		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
+		ImageCollectionDiffer imageCollectionDiffer = new ImageCollectionDiffer(this.mr_)
+		if (logger_ != null) {
+			imageCollectionDiffer.setVisualTestingLogger(logger_)
+		}
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		return icDiffer.chronos(materialPairs, new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+		return imageCollectionDiffer.chronos(materialPairs, new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
 	}
 
@@ -62,9 +71,12 @@ public class ImageCollectionDifferRunner {
 	public boolean twins(TSuiteName capturingTSuiteName, double criteriaPercentage) {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
-		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
+		ImageCollectionDiffer imageCollectionDiffer = new ImageCollectionDiffer(this.mr_)
+		if (logger_ != null) {
+			imageCollectionDiffer.setVisualTestingLogger(logger_)
+		}
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		return icDiffer.twins(materialPairs,new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+		return imageCollectionDiffer.twins(materialPairs,new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
 
@@ -88,6 +100,10 @@ public class ImageCollectionDifferRunner {
 				filterDataLessThan( options.getFilterDataLessThan() ).
 				shiftCriteriaPercentageBy( options.getShiftCriteriaPercentageBy() ).
 				build())
+
+		if (logger_ != null) {
+			storageScanner.setVisualTestingLogger(logger_)
+		}
 
 		// calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
 		ImageDeltaStats imageDeltaStats = storageScanner.scan(capturingTSuiteName)

@@ -81,7 +81,7 @@ def downloadFile = { String remoteUrl, String localDir ->
 task downloadPlugins {
     doLast {
         downloadFile('https://github.com/kazurayam/ksbackyard/releases/download/0.34.0/ksbackyard-all.jar', 'Drivers/')
-        downloadFile('https://github.com/kazurayam/Materials/releases/download/0.54.0/Materials-0.54.0.jar', 'Drivers/')
+        downloadFile('https://github.com/kazurayam/Materials/releases/download/0.58.0/Materials-0.58.0.jar', 'Drivers/')
 
     }
 }
