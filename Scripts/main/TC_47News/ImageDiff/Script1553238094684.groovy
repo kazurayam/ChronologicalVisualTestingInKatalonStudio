@@ -1,8 +1,11 @@
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TSuiteName
-import com.kazurayam.visualtesting.CollectiveImageDiffer
-import com.kazurayam.visualtesting.CollectiveImageDiffer.ChronosOptions
+import com.kazurayam.materials.VisualTestingLogger
+import com.kazurayam.visualtesting.ImageCollectionDifferRunner
+import com.kazurayam.visualtesting.VisualTestingLoggerImpl
+import com.kazurayam.visualtesting.ImageCollectionDifferRunner.ChronosOptions
+import com.kms.katalon.core.util.KeywordUtil
 
 import internal.GlobalVariable as GlobalVariable
 
@@ -10,7 +13,7 @@ import internal.GlobalVariable as GlobalVariable
  * (1) Declare parameters
  */
 String TESTSUITE_ID = '47News_chronos_capture'
-double SHIFT_CRITERIA_PERCANTAGE_BY = 2.0
+double SHIFT_CRITERIA_PERCANTAGE_BY = 0.0
 
 /*
  * (2) Prepare runtime environment
@@ -31,7 +34,12 @@ ChronosOptions options =
 			shiftCriteriaPercentageBy(SHIFT_CRITERIA_PERCANTAGE_BY).
 			build()
 
-CollectiveImageDiffer collectiveImageDiffer = new CollectiveImageDiffer(mr)
+ImageCollectionDifferRunner runner = new ImageCollectionDifferRunner(mr)
+VisualTestingLogger logger = new VisualTestingLoggerImpl()
+runner.setVisualTestingLogger(logger)
 
-collectiveImageDiffer.chronos(new TSuiteName(TESTSUITE_ID), ms, options)
+boolean result = runner.chronos(new TSuiteName(TESTSUITE_ID), ms, options)
 
+if (! result ) {
+	KeywordUtil.markFailed("One or more pairs of screenshot are different.")
+}

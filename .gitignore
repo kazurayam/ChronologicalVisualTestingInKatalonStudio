@@ -24,3 +24,6 @@
 
 ## Drivers dir is updated by gradle.build#drivers task
 /Drivers/
+
+
+settings/internal/com.kms.katalon.composer.testcase.properties
