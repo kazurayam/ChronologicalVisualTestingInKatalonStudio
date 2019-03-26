@@ -1,8 +1,8 @@
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TSuiteName
-import com.kazurayam.visualtesting.CollectiveImageDiffer
-import com.kazurayam.visualtesting.CollectiveImageDiffer.ChronosOptions
+import com.kazurayam.visualtesting.ImageCollectionDifferRunner
+import com.kazurayam.visualtesting.ImageCollectionDifferRunner.ChronosOptions
 
 import internal.GlobalVariable as GlobalVariable
 
@@ -31,7 +31,7 @@ ChronosOptions options =
 			shiftCriteriaPercentageBy(SHIFT_CRITERIA_PERCANTAGE_BY).
 			build()
 
-CollectiveImageDiffer collectiveImageDiffer = new CollectiveImageDiffer(mr)
+ImageCollectionDifferRunner runner = new ImageCollectionDifferRunner(mr)
 
-collectiveImageDiffer.chronos(new TSuiteName(TESTSUITE_ID), ms, options)
+runner.chronos(new TSuiteName(TESTSUITE_ID), ms, options)
 

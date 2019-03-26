@@ -1,12 +1,12 @@
-import com.kazurayam.visualtesting.CoreListener
+import com.kazurayam.visualtesting.VisualTestingListenerImpl
 import com.kms.katalon.core.annotation.BeforeTestCase
 import com.kms.katalon.core.annotation.BeforeTestSuite
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
 
-class VTListener {
+class VisualTestingListener {
 	
-	static CoreListener listener = new CoreListener()
+	static VisualTestingListenerImpl listener = new VisualTestingListenerImpl()
 		
 	@BeforeTestSuite
 	def beforeTestSuite(TestSuiteContext testSuiteContext) {

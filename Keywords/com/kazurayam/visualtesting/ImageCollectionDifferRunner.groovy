@@ -18,12 +18,12 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable
 
-public class CollectiveImageDiffer {
+public class ImageCollectionDifferRunner {
 
 	private MaterialRepository mr_
 	private TSuiteName capturingTSuiteName_
 
-	CollectiveImageDiffer(MaterialRepository mr) {
+	ImageCollectionDifferRunner(MaterialRepository mr) {
 		Objects.requireNonNull(mr, "mr must not be null")
 		this.mr_                  = mr
 		// MaterialRepository#putCurrentTestSuite() is called to decide where to save the image diff files
@@ -42,12 +42,12 @@ public class CollectiveImageDiffer {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		Objects.requireNonNull(ms, "ms must not be null")
 		Objects.requireNonNull(options, "options must not be null")
-		
-		// scan the 'Storage' directory to get the statistics of previous runs 
+
+		// scan the 'Storage' directory to get the statistics of previous runs
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
-		
+
 		// make image diffs, write the result into the directory named
-		// 'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>' 
+		// 'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>'
 		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
 		ImageCollectionDiffer icDiffer = new ImageCollectionDiffer(this.mr_)
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
@@ -74,7 +74,7 @@ public class CollectiveImageDiffer {
 				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
-	
+
 	/**
 	 *
 	 * @return

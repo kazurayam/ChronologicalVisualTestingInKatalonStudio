@@ -13,13 +13,13 @@ import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
 
-public class CoreListener {
+public class VisualTestingListenerImpl {
 
 	private Path reportDir
 	private Path materialsDir
 	private Path storageDir
 
-	CoreListener() {
+	VisualTestingListenerImpl() {
 		// For example,
 		// reportDir    -> C:/Users/username/katalon-workspace/VisualTestingInKatalonStudio/Reports/TS1/20180618_165141
 		// materialsDir -> C:/Users/username/katalon-workspace/VisualTestingInKatalonStudio/Materials
