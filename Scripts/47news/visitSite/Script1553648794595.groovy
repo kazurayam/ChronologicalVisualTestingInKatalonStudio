@@ -24,7 +24,7 @@ import internal.GlobalVariable as GlobalVariable
 def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
-	WebUI.verifyElementPresent(findTestObject('47NEWS/div_main-post01'), 10)
+	WebUI.verifyElementPresent(findTestObject('47news/div_main-post01'), 10)
 	WebUI.delay(1)
 	
 	// modify the style of <div class="global-nav fixed"> to have position:static
@@ -36,10 +36,10 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// take screenshot with width=640 px and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
 	Options options = new Options.Builder().timeout(500).
-						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-post02')).
-						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_main-bnr')).
-						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_sidebar')).
-						addIgnoredElement(findTestObject('Object Repository/47NEWS/div_footer-ad')).
+						addIgnoredElement(findTestObject('47news/div_main-post02')).
+						addIgnoredElement(findTestObject('47news/div_main-bnr')).
+						addIgnoredElement(findTestObject('47news/div_sidebar')).
+						addIgnoredElement(findTestObject('47news/div_footer-ad')).
 						// width(640).
 						build()
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(

@@ -12,6 +12,7 @@ import internal.GlobalVariable as GlobalVariable
  * It just read files and write a file.
  */
 MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
+assert mr != null
 
 Path index = mr.makeIndex()
 

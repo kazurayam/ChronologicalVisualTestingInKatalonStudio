@@ -8,10 +8,13 @@ import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialRepositoryFactory
 import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.MaterialStorageFactory
+import com.kazurayam.materials.TSuiteName
+import com.kazurayam.materials.TSuiteTimestamp
 import com.kazurayam.visualtesting.GlobalVariableHelpers as GVH
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.context.TestCaseContext
 import com.kms.katalon.core.context.TestSuiteContext
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 public class VisualTestingListenerImpl {
 
@@ -55,17 +58,36 @@ public class VisualTestingListenerImpl {
 
 	void beforeTestCase(TestCaseContext testCaseContext) {
 		Objects.requireNonNull(testCaseContext, "testCaseContext must not be null")
-		//
+
+		if ( ! GVH.isGlobalVariablePresent(GVName.CURRENT_TESTSUITE_ID) ) {
+			GVH.ensureGlobalVariable(GVName.CURRENT_TESTSUITE_ID, TSuiteName.SUITELESS_DIRNAME)
+		}
+		if ( ! GVH.isGlobalVariablePresent(GVName.CURRENT_TESTSUITE_TIMESTAMP) ) {
+			GVH.ensureGlobalVariable(GVName.CURRENT_TESTSUITE_TIMESTAMP, TSuiteTimestamp.TIMELESS_DIRNAME)
+		}
+		
 		GVH.ensureGlobalVariable(GVName.CURRENT_TESTCASE_ID, testCaseContext.getTestCaseId())
+		
+		WebUI.comment("VisualTestingListenerImpl#beforeTestCase ${GVName.CURRENT_TESTSUITE_ID} is \"${GVH.getGlobalVariableValue(GVName.CURRENT_TESTSUITE_ID)}\"")
+		WebUI.comment("VisualTestingListenerImpl#beforeTestCase ${GVName.CURRENT_TESTSUITE_TIMESTAMP} is \"${GVH.getGlobalVariableValue(GVName.CURRENT_TESTSUITE_TIMESTAMP)}\"")
+		WebUI.comment("VisualTestingListenerImpl#beforeTestCase ${GVName.CURRENT_TESTCASE_ID} is \"${GVH.getGlobalVariableValue(GVName.CURRENT_TESTCASE_ID)}\"")
+		
 		//
 		if ( ! GVH.isGlobalVariablePresent(GVName.MATERIAL_REPOSITORY) ) {
+			Files.createDirectories(materialsDir)
 			MaterialRepository mr = MaterialRepositoryFactory.createInstance(materialsDir)
+			mr.putCurrentTestSuite(TSuiteName.SUITELESS_DIRNAME, TSuiteTimestamp.TIMELESS_DIRNAME)
 			GVH.ensureGlobalVariable(GVName.MATERIAL_REPOSITORY, mr)
 		}
+		WebUI.comment("VisualTestingListenerImpl#beforeTestCase ${GVName.MATERIAL_REPOSITORY} is \"${GVH.getGlobalVariableValue(GVName.MATERIAL_REPOSITORY).toString()}\"")
+		
 		if ( ! GVH.isGlobalVariablePresent(GVName.MATERIAL_STORAGE) ) {
+			Files.createDirectories(storageDir)
 			MaterialStorage ms = MaterialStorageFactory.createInstance(storageDir)
 			GVH.ensureGlobalVariable(GVName.MATERIAL_STORAGE, ms)
 		}
+		WebUI.comment("VisualTestingListenerImpl#beforeTestCase ${GVName.MATERIAL_STORAGE} is \"${GVH.getGlobalVariableValue(GVName.MATERIAL_STORAGE).toString()}\"")
+		
 	}
 
 	void afterTestCase(TestCaseContext testCaseContext) {

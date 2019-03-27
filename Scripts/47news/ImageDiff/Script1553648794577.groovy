@@ -12,7 +12,7 @@ import internal.GlobalVariable as GlobalVariable
 /*
  * (1) Declare parameters
  */
-String TESTSUITE_ID = '47News_chronos_capture'
+String TESTSUITE_ID = '47news/chronos_capture'
 double SHIFT_CRITERIA_PERCANTAGE_BY = 0.0
 
 /*

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>47News_chronos_capture</name>
+   <name>chronos_capture</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -14,19 +14,19 @@
       <guid>42cfbf79-67a0-400a-b228-631b02b79737</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/TC_47News/visitSite</testCaseId>
+      <testCaseId>Test Cases/47news/visitSite</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>3ce63474-2a66-4e2f-8349-6740e3032bbb</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/TC_47News/backupCurrentTSuiteResult</testCaseId>
+      <testCaseId>Test Cases/VT/backupCurrentTSuiteResult</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>b6f95089-4ce3-4587-9f66-ed83aa56b6ed</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/TC_47News/restorePreviousTSuiteResult</testCaseId>
+      <testCaseId>Test Cases/VT/restorePreviousTSuiteResult</testCaseId>
       <variableLink>
          <testDataLinkId></testDataLinkId>
          <type>DEFAULT</type>

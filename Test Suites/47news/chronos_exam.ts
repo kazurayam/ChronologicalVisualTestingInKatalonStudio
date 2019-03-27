@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>47News_chronos_exam</name>
+   <name>chronos_exam</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -14,6 +14,6 @@
       <guid>3f8309ee-0c02-4d12-a6be-95d292a5ae5e</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/TC_47News/ImageDiff</testCaseId>
+      <testCaseId>Test Cases/47news/ImageDiff</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>
