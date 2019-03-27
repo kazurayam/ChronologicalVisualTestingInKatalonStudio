@@ -16,22 +16,4 @@
       <isRun>true</isRun>
       <testCaseId>Test Cases/47news/visitSite</testCaseId>
    </testCaseLink>
-   <testCaseLink>
-      <guid>3ce63474-2a66-4e2f-8349-6740e3032bbb</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/VT/backupCurrentTSuiteResult</testCaseId>
-   </testCaseLink>
-   <testCaseLink>
-      <guid>b6f95089-4ce3-4587-9f66-ed83aa56b6ed</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/VT/restorePreviousTSuiteResult</testCaseId>
-      <variableLink>
-         <testDataLinkId></testDataLinkId>
-         <type>DEFAULT</type>
-         <value></value>
-         <variableId>737523c0-e55e-4415-a49c-9d1015dee824</variableId>
-      </variableLink>
-   </testCaseLink>
 </TestSuiteEntity>
