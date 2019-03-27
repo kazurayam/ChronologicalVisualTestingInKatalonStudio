@@ -150,8 +150,13 @@ public class ImageCollectionDifferRunner {
 
 		if (materialPairs.size() == 0) {
 			KeywordUtil.markFailedAndStop(
-					">>> The capturingTSuiteName is \"${capturingTSuiteName.getId()}\"" +
-					", which has materialPairs.size() of 0.")
+					"The size of materialParis of the Test Suite \"${capturingTSuiteName.getId()}\" is found == 0. " +
+					"This means you executed the Test Suite for the 1st time, " +
+					"or you had erased all previous records of its execution in the Storage directory. " +
+					"Don\'t mind it. " +
+					"The last execution has restored a set of screenshots. " +
+					"Just try the Test Suite again. " +
+					"Then it should run OK.")
 		}
 
 		return materialPairs
