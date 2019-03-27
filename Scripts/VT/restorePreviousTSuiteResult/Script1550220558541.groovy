@@ -5,6 +5,7 @@ import com.kazurayam.materials.RetrievalBy.SearchContext
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.TSuiteResultId
 import com.kazurayam.materials.TSuiteTimestamp
+import com.kazurayam.visualtesting.GVName
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -18,8 +19,8 @@ import java.time.LocalDateTime
 
 STRATEGY = 'last'    // last, 1hourAgo, lastEveningAt18
 
-MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
-MaterialStorage    ms = (MaterialStorage)   GlobalVariable.MATERIAL_STORAGE
+MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
+MaterialStorage    ms = (MaterialStorage)   GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
 TSuiteName tsn        = new TSuiteName(mr.getCurrentTestSuiteId()) 
 TSuiteTimestamp tst   = TSuiteTimestamp.newInstance(mr.getCurrentTestSuiteTimestamp())
 

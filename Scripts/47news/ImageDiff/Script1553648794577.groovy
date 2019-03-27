@@ -2,6 +2,7 @@ import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.VisualTestingLogger
+import com.kazurayam.visualtesting.GVName
 import com.kazurayam.visualtesting.ImageCollectionDifferRunner
 import com.kazurayam.visualtesting.VisualTestingLoggerImpl
 import com.kazurayam.visualtesting.ImageCollectionDifferRunner.ChronosOptions
@@ -18,8 +19,8 @@ double SHIFT_CRITERIA_PERCANTAGE_BY = 0.0
 /*
  * (2) Prepare runtime environment
  */
-MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
-MaterialStorage    ms = (MaterialStorage)GlobalVariable.MATERIAL_STORAGE
+MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
+MaterialStorage    ms = (MaterialStorage)GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
 assert mr != null
 assert ms != null
 
