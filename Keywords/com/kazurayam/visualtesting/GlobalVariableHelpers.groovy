@@ -3,6 +3,8 @@ package com.kazurayam.visualtesting
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
 import internal.GlobalVariable
 
 public class GlobalVariableHelpers {
@@ -35,12 +37,32 @@ public class GlobalVariableHelpers {
 	 * @return true if GlobalVarialbe.name is defined, otherwise false
 	 */
 	static boolean isGlobalVariablePresent(String name) {
-		return internal.GlobalVariable.metaClass.hasProperty( internal.GlobalVariable, name ) &&
-				internal.GlobalVariable.name
+		boolean result = internal.GlobalVariable.metaClass.hasProperty( internal.GlobalVariable, name ) &&
+				internal.GlobalVariable[name]
+		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") internal.GlobalVariable.metaClass.hassProperty(internal.GlobalVariable, name) is ${internal.GlobalVariable.metaClass.hasProperty( internal.GlobalVariable, name )}")
+		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") internal.GlobalVariable[name] is ${internal.GlobalVariable[name]}")
+		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") returns ${result}")		
+		return result
 	}
 
 	static boolean isGlobalVariablePresent(GVName gvName) {
 		return isGlobalVariablePresent(gvName.getName())
+	}
+
+	static Object getGlobalVariableValue(String name) {
+		if (isGlobalVariablePresent(name)) {
+			return GlobalVariable[name]
+		} else {
+			return null
+		}
+	}
+
+	static Object getGlobalVariableValue(GVName gvName) {
+		if (isGlobalVariablePresent(gvName.getName())) {
+			return GlobalVariable[gvName.getName()]
+		} else {
+			return null
+		}
 	}
 
 	/**
