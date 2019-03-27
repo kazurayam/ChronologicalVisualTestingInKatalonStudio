@@ -25,7 +25,7 @@ assert ms != null
 
 /*
  * (3) make image diffs, write the result into the directory
- *     'Materials/47News_chronos_exam/yyyyMMdd_hhmmss/ImageDiff_new' which is
+ *     'Materials/47news.chronos_exam/yyyyMMdd_hhmmss/ImageDiff_new' which is
  *     'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>'
  */
 ChronosOptions options = 
