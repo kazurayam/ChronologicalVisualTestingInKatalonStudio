@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver
 
 import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kazurayam.materials.MaterialRepository
+import com.kazurayam.visualtesting.GVName
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -34,7 +35,7 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	//	".innerHTML = \".fixed {position: static !important; }\"")
 	
 	// take screenshot with width=640 px and save it into a file under the ./Materials folder
-	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable.CURRENT_TESTCASE_ID, fileName)
+	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()], fileName)
 	Options options = new Options.Builder().timeout(500).
 						addIgnoredElement(findTestObject('47news/div_main-post02')).
 						addIgnoredElement(findTestObject('47news/div_main-bnr')).
@@ -48,7 +49,7 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 }
 
 // prepare environement
-MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
+MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
 
 // open browser
 WebUI.openBrowser('')

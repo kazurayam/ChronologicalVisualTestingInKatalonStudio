@@ -1,6 +1,7 @@
 import com.kazurayam.materials.Material
 import com.kazurayam.materials.MaterialStorage
-import com.kazurayam.materials.model.TSuiteResult
+import com.kazurayam.materials.TSuiteResult
+import com.kazurayam.visualtesting.GVName
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -8,7 +9,7 @@ import internal.GlobalVariable as GlobalVariable
 /**
  * listStorage
  */
-MaterialStorage ms = (MaterialStorage)GlobalVariable.MATERIAL_STORAGE
+MaterialStorage ms = (MaterialStorage)GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
 
 List<TSuiteResult> tsrList = ms.getTSuiteResultList()
 

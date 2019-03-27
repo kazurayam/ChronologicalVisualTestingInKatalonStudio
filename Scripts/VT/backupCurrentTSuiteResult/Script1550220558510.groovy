@@ -3,6 +3,7 @@ import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.TSuiteResultId
 import com.kazurayam.materials.TSuiteTimestamp
+import com.kazurayam.visualtesting.GVName
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -10,8 +11,8 @@ import internal.GlobalVariable as GlobalVariable
 /**
  * copy the Material files under the ./Materials/<Test Suite Name> directory.
  */
-MaterialRepository mr = (MaterialRepository)GlobalVariable.MATERIAL_REPOSITORY
-MaterialStorage    ms = (MaterialStorage)   GlobalVariable.MATERIAL_STORAGE
+MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
+MaterialStorage    ms = (MaterialStorage)   GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
 
 WebUI.comment("mr.getCurrentTestSuiteId(): ${mr.getCurrentTestSuiteId()}")
 

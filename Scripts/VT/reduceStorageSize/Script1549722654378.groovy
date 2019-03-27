@@ -1,5 +1,6 @@
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
+import com.kazurayam.visualtesting.GVName
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -8,7 +9,7 @@ import internal.GlobalVariable as GlobalVariable
  * Reduce the size of 'Storage' directory 
  * This script will remove old files of the current TSuiteName sub-directory.
  */
-MaterialStorage ms = (MaterialStorage)GlobalVariable.MATERIAL_STORAGE
+MaterialStorage ms = (MaterialStorage)GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
 assert ms != null
 
 def size = ms.reduce(20_000_000)
