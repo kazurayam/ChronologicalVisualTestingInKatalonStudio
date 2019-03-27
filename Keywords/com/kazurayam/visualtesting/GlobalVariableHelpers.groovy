@@ -41,7 +41,7 @@ public class GlobalVariableHelpers {
 				internal.GlobalVariable[name]
 		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") internal.GlobalVariable.metaClass.hassProperty(internal.GlobalVariable, name) is ${internal.GlobalVariable.metaClass.hasProperty( internal.GlobalVariable, name )}")
 		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") internal.GlobalVariable[name] is ${internal.GlobalVariable[name]}")
-		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") returns ${result}")		
+		//WebUI.comment("GVH.isGlobalVariablePresent(\"${name}\") returns ${result}")
 		return result
 	}
 
