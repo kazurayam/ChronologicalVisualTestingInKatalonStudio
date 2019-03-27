@@ -57,7 +57,7 @@ WebUI.openBrowser('')
 WebUI.setViewPortSize(1280, 800)
 
 // visit pages and take screenshots
-visitPage(mr, new URL('https://www.47news.jp/'), '47NEWS_TOP.png')
+visitPage(mr, new URL('https://www.47news.jp/'), 'top.png')
 // ... can visit more pages
 // ... can visit more pages
 // ... can visit more pages

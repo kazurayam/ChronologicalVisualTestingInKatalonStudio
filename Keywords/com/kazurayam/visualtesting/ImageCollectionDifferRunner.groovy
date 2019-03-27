@@ -1,5 +1,7 @@
 package com.kazurayam.visualtesting
 
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 import java.nio.file.Path
 import java.util.stream.Collectors
 
@@ -11,6 +13,7 @@ import com.kazurayam.materials.TCaseName
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.TSuiteTimestamp
 import com.kazurayam.materials.VisualTestingLogger
+import com.kazurayam.materials.imagedifference.ComparisonResultBundle
 import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.stats.ImageDeltaStats
 import com.kazurayam.materials.stats.StorageScanner
@@ -24,6 +27,7 @@ public class ImageCollectionDifferRunner {
 	private MaterialRepository mr_
 	private TSuiteName capturingTSuiteName_
 	private VisualTestingLogger logger_
+	private Path imageDeltaStatsJson_
 
 	ImageCollectionDifferRunner(MaterialRepository mr) {
 		Objects.requireNonNull(mr, "mr must not be null")
@@ -48,18 +52,33 @@ public class ImageCollectionDifferRunner {
 		Objects.requireNonNull(capturingTSuiteName, "capturingTSuiteName must not be null")
 		Objects.requireNonNull(ms, "ms must not be null")
 		Objects.requireNonNull(options, "options must not be null")
+
 		// scan the 'Storage' directory to get the statistics of previous runs
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
+
+		// copy image-delta-stats.json file from Storage dir to the Materials dir to bring it visible in the Materials/index.html
+		Path toPath1 = mr_.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()], ImageDeltaStats.IMAGE_DELTA_STATS_FILE_NAME)
+		if (this.imageDeltaStatsJson_ != null) {
+			Files.copy(this.imageDeltaStatsJson_, toPath1, StandardCopyOption.REPLACE_EXISTING)
+		}
+
 		// make image diffs, write the result into the directory named
 		// 'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>'
-		WebUI.comment(">>> diff image files will be saved into ${mr_.getCurrentTestSuiteDirectory().toString()}")
 		ImageCollectionDiffer imageCollectionDiffer = new ImageCollectionDiffer(this.mr_)
 		if (logger_ != null) {
 			imageCollectionDiffer.setVisualTestingLogger(logger_)
 		}
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		return imageCollectionDiffer.chronos(materialPairs, new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+		boolean result = imageCollectionDiffer.chronos(materialPairs, new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
+		WebUI.comment("${ComparisonResultBundle.SERIALIZED_FILE_NAME} files will be saved into ${imageCollectionDiffer.getOutput()}")
+
+		// copy comparison-result-bundle.json file from Storage dir to the Materials dir to bring it visible in the Materials/index.html
+		Path toPath2 = mr_.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()],ComparisonResultBundle.SERIALIZED_FILE_NAME)
+		Files.copy(imageCollectionDiffer.getOutput(), toPath2)
+		WebUI.comment("copied into ${toPath2}")
+
+		return result
 	}
 
 	/**
@@ -90,6 +109,7 @@ public class ImageCollectionDifferRunner {
 		TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()]        )
 		TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
 		TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()]         )
+
 		Path previousIDS = StorageScanner.findLatestImageDeltaStats(ms, tSuiteNameExam, tCaseNameExam)
 		//
 		StorageScanner storageScanner =
@@ -108,8 +128,8 @@ public class ImageCollectionDifferRunner {
 		// calculate the criteriaPercentages for each screenshot images based on the diffs of previous images
 		ImageDeltaStats imageDeltaStats = storageScanner.scan(capturingTSuiteName)
 
-		// persit the imageDeltaStats of this time into disk. It will be reused as previousIDS when this script run next time
-		storageScanner.persist(imageDeltaStats, tSuiteNameExam, tSuiteTimestampExam, tCaseNameExam)
+		// persit the image-delta-stats.json into disk. It will be reused as previousIDS when this script run next time
+		this.imageDeltaStatsJson_ = storageScanner.persist(imageDeltaStats, tSuiteNameExam, tSuiteTimestampExam, tCaseNameExam)
 
 		//
 		return imageDeltaStats
