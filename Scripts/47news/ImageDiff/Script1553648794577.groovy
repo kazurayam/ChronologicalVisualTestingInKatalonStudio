@@ -10,4 +10,4 @@ ChronosOptions options = new ChronosOptions.Builder().
 							shiftCriteriaPercentageBy(2.0).
 							build()
 
-CustomKeywords.'com.kazurayam.visualtesting.ImageDiff.runChronos'(TESTSUITE_ID, options)
+CustomKeywords.'com.kazurayam.visualtesting.ImageDiffer.runChronos'(TESTSUITE_ID, options)

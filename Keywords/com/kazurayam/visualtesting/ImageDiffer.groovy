@@ -10,10 +10,11 @@ import com.kms.katalon.core.util.KeywordUtil
 
 import internal.GlobalVariable
 
-public class ImageDiff {
+public class ImageDiffer {
 
 	@Keyword
 	static void runChronos(String testSuiteId, ChronosOptions options) {
+
 		Objects.requireNonNull(testSuiteId, "testSuiteId must not be null")
 		Objects.requireNonNull(options, "options must not be null")
 
