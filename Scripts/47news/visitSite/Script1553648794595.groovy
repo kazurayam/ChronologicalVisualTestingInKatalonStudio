@@ -1,6 +1,7 @@
 import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
 
-import java.nio.file.Path as Path
+import java.nio.file.Path
+import java.nio.file.Paths
 
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebDriver
@@ -8,6 +9,9 @@ import org.openqa.selenium.WebDriver
 import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.visualtesting.GVName
+import com.kms.katalon.core.configuration.RunConfiguration
+import com.kms.katalon.core.testdata.TestData
+import com.kms.katalon.core.testdata.TestDataFactory
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -37,10 +41,10 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// take screenshot with width=640 px and save it into a file under the ./Materials folder
 	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()], fileName)
 	Options options = new Options.Builder().timeout(500).
-						addIgnoredElement(findTestObject('47news/div_main-post02')).
-						addIgnoredElement(findTestObject('47news/div_main-bnr')).
-						addIgnoredElement(findTestObject('47news/div_sidebar')).
-						addIgnoredElement(findTestObject('47news/div_footer-ad')).
+						//addIgnoredElement(findTestObject('47news/div_main-post02')).
+						//addIgnoredElement(findTestObject('47news/div_main-bnr')).
+						//addIgnoredElement(findTestObject('47news/div_sidebar')).
+						//addIgnoredElement(findTestObject('47news/div_footer-ad')).
 						// width(640).
 						build()
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
@@ -55,13 +59,16 @@ MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOS
 WebUI.openBrowser('')
 
 // set appropriate window size
-WebUI.setViewPortSize(1280, 800)
+WebUI.setViewPortSize(1100, 800)
 
-// visit pages and take screenshots
-visitPage(mr, new URL('https://www.47news.jp/'), 'top.png')
-// ... can visit more pages
-// ... can visit more pages
-// ... can visit more pages
+// iterate over URLs listed in the URLs.csv file
+TestData testData = TestDataFactory.findTestData('URLs')
+List<List<Object>> allData = testData.getAllData()
+for (List<Object> line : allData) {
+	// visit pages and take screenshots
+	String url = (String)line.get(0)    // e.g, 'https://www.47news.jp/'
+    visitPage(mr, new URL(url), 'top.png')
+}
 
 // close browser
 WebUI.closeBrowser()
