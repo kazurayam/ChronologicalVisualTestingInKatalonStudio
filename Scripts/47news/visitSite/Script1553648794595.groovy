@@ -29,7 +29,7 @@ import internal.GlobalVariable as GlobalVariable
 def visitPage(MaterialRepository mr, URL url, String fileName) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
-	WebUI.verifyElementPresent(findTestObject('47news/div_main-post01'), 10)
+	//WebUI.verifyElementPresent(findTestObject('47news/div_main-post01'), 10)
 	WebUI.delay(1)
 	
 	// modify the style of <div class="global-nav fixed"> to have position:static
