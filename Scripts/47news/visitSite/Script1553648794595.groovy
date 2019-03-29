@@ -10,6 +10,7 @@ import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.visualtesting.GVName
 import com.kms.katalon.core.configuration.RunConfiguration
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.testdata.TestData
 import com.kms.katalon.core.testdata.TestDataFactory
 import com.kms.katalon.core.webui.driver.DriverFactory
@@ -31,6 +32,11 @@ def visitPage(MaterialRepository mr, URL url) {
 	WebUI.navigateToUrl(url.toExternalForm())
 	WebUI.verifyElementPresent(findTestObject('47news/div_partners'), 10)
 	WebUI.delay(1)
+	
+	// move mouse cursor off photos. this is necessary because this site
+	// reacts against events mouse over photos and images get a bit dark
+	WebUI.mouseOver(findTestObject('Object Repository/47news/div_global-nav'),
+					FailureHandling.OPTIONAL)
 	
 	// modify the style of <div class="global-nav fixed"> to have position:static
 	// to make the screenshot pretty looking
