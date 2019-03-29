@@ -15,6 +15,18 @@
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
       <testCaseId>Test Cases/47news/visitSite</testCaseId>
+      <variableLink>
+         <testDataLinkId></testDataLinkId>
+         <type>DEFAULT</type>
+         <value></value>
+         <variableId>3499687e-65ea-4c3b-bde7-1dc745b7d0fd</variableId>
+      </variableLink>
+      <variableLink>
+         <testDataLinkId></testDataLinkId>
+         <type>DEFAULT</type>
+         <value></value>
+         <variableId>e6ea7cf4-2f32-4a4c-a181-35bad53b84e0</variableId>
+      </variableLink>
    </testCaseLink>
    <testCaseLink>
       <guid>915943ec-566f-4810-b580-c9547228f531</guid>

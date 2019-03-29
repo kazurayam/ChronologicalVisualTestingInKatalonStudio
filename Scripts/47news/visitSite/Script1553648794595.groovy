@@ -26,10 +26,10 @@ import internal.GlobalVariable as GlobalVariable
  *  
  *  The filename must be unique within a test case.
  */
-def visitPage(MaterialRepository mr, URL url, String fileName) {
+def visitPage(MaterialRepository mr, URL url) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
-	//WebUI.verifyElementPresent(findTestObject('47news/div_main-post01'), 10)
+	WebUI.verifyElementPresent(findTestObject('47news/div_partners'), 10)
 	WebUI.delay(1)
 	
 	// modify the style of <div class="global-nav fixed"> to have position:static
@@ -38,18 +38,27 @@ def visitPage(MaterialRepository mr, URL url, String fileName) {
 	//js.executeScript("document.head.appendChild(document.createElement(\"style\"))" +
 	//	".innerHTML = \".fixed {position: static !important; }\"")
 	
-	// take screenshot with width=640 px and save it into a file under the ./Materials folder
-	Path fileNamedFixed = mr.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()], fileName)
-	Options options = new Options.Builder().timeout(500).
-						//addIgnoredElement(findTestObject('47news/div_main-post02')).
-						//addIgnoredElement(findTestObject('47news/div_main-bnr')).
-						//addIgnoredElement(findTestObject('47news/div_sidebar')).
-						//addIgnoredElement(findTestObject('47news/div_footer-ad')).
+	// resolve Path of output file based on the URL string
+	Path filePath = mr.resolveScreenshotPathByURLPathComponents(
+						GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()],
+						url,
+						0,
+						'top')
+	
+	Options options = new Options.Builder().timeout(200).
+						addIgnoredElement(findTestObject('47news/div_main-post02')).
+						addIgnoredElement(findTestObject('47news/div_main-bnr')).
+						addIgnoredElement(findTestObject('47news/div_sidebar')).
+						addIgnoredElement(findTestObject('47news/div_footer-ad')).
 						// width(640).
 						build()
+
+	// take screenshot image and save into file
 	CustomKeywords.'com.kazurayam.ksbackyard.ScreenshotDriver.saveEntirePageImage'(
-		fileNamedFixed.toFile(),
+		filePath.toFile(),
 		options)
+	
+	WebUI.comment("visited ${url}, screenshot into ${filePath.toString()}")
 }
 
 // prepare environement
@@ -64,10 +73,14 @@ WebUI.setViewPortSize(1100, 800)
 // iterate over URLs listed in the URLs.csv file
 TestData testData = TestDataFactory.findTestData('URLs')
 List<List<Object>> allData = testData.getAllData()
-for (List<Object> line : allData) {
-	// visit pages and take screenshots
+for (int index = 0; index < allData.size(); index++) {
+	//if (DEBUG_MODE == true && index > MAX_LINES_DEBUG) {
+	//	break;
+	//}
+	List<Object> line = allData.get(index)
 	String url = (String)line.get(0)    // e.g, 'https://www.47news.jp/'
-    visitPage(mr, new URL(url), 'top.png')
+    // visit the url and take its screenshot
+	visitPage(mr, new URL(url))
 }
 
 // close browser
