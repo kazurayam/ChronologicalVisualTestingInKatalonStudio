@@ -17,7 +17,6 @@ import java.time.LocalDateTime
  * restore the previous TSuiteResult from the Storage dir into the Materials dir
  */
 
-STRATEGY = 'last'    // last, 1hourAgo, lastEveningAt18
 
 MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
 MaterialStorage    ms = (MaterialStorage)   GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
@@ -26,7 +25,7 @@ TSuiteTimestamp tst   = TSuiteTimestamp.newInstance(mr.getCurrentTestSuiteTimest
 
 int count = 0
 
-switch(STRATEGY) {
+switch(STRATEGY) {   // is defined in the Variables tab
 	case 'last':
 		// restore tha last shot previous to the current
 		count = ms.restoreUnary(mr, tsn, RetrievalBy.before(tst))
@@ -43,6 +42,7 @@ switch(STRATEGY) {
 	    LocalDateTime base = LocalDateTime.now().minusDays(1)
 		count = ms.restoreUnary(mr, tsn, RetrievalBy.before(base, 18, 0, 0))
 		break
+		
 	default:
 		KeywordUtil.markFailedAndStop("unknown STRATEGY: ${STRATEGY}")
 } 
