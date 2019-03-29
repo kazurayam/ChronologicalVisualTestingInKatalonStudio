@@ -69,8 +69,10 @@ public class ImageCollectionDifferRunner {
 			imageCollectionDiffer.setVisualTestingLogger(logger_)
 		}
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		boolean result = imageCollectionDiffer.makeImageCollectionDifferences(materialPairs, new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
-				stats)
+		boolean result = imageCollectionDiffer.makeImageCollectionDifferences(
+								materialPairs,
+								new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+								stats)
 		WebUI.comment("${ComparisonResultBundle.SERIALIZED_FILE_NAME} files will be saved into ${imageCollectionDiffer.getOutput()}")
 
 		// copy comparison-result-bundle.json file from Storage dir to the Materials dir to bring it visible in the Materials/index.html
@@ -95,7 +97,9 @@ public class ImageCollectionDifferRunner {
 			imageCollectionDiffer.setVisualTestingLogger(logger_)
 		}
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
-		return imageCollectionDiffer.twins(materialPairs,new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+		return imageCollectionDiffer.makeImageCollectionDifferences(
+				materialPairs,
+				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
 
