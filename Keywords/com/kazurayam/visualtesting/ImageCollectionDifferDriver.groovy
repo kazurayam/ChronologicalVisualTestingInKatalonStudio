@@ -17,25 +17,26 @@ import com.kazurayam.materials.imagedifference.ComparisonResultBundle
 import com.kazurayam.materials.imagedifference.ImageCollectionDiffer
 import com.kazurayam.materials.stats.ImageDeltaStats
 import com.kazurayam.materials.stats.StorageScanner
+import com.kazurayam.visualtesting.ManagedGlobalVariable as MGV
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable
 
-public class ImageCollectionDifferRunner {
+public class ImageCollectionDifferDriver {
 
 	private MaterialRepository mr_
 	private TSuiteName capturingTSuiteName_
 	private VisualTestingLogger logger_
 	private Path imageDeltaStatsJson_
 
-	ImageCollectionDifferRunner(MaterialRepository mr) {
+	ImageCollectionDifferDriver(MaterialRepository mr) {
 		Objects.requireNonNull(mr, "mr must not be null")
 		this.mr_                  = mr
 		// MaterialRepository#putCurrentTestSuite() is called to decide where to save the image diff files
 		this.mr_.putCurrentTestSuite(
-				GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()],
-				GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
+				GlobalVariable[MGV.CURRENT_TESTSUITE_ID.getName()],
+				GlobalVariable[MGV.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
 	}
 
 	void setVisualTestingLogger(VisualTestingLogger logger) {
@@ -57,7 +58,7 @@ public class ImageCollectionDifferRunner {
 		ImageDeltaStats stats = this.createImageDeltaStats(ms, capturingTSuiteName, options)
 
 		// copy image-delta-stats.json file from Storage dir to the Materials dir to bring it visible in the Materials/index.html
-		Path toPath1 = mr_.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()], ImageDeltaStats.IMAGE_DELTA_STATS_FILE_NAME)
+		Path toPath1 = mr_.resolveMaterialPath(GlobalVariable[ManagedGlobalVariable.CURRENT_TESTCASE_ID.getName()], ImageDeltaStats.IMAGE_DELTA_STATS_FILE_NAME)
 		if (this.imageDeltaStatsJson_ != null) {
 			Files.copy(this.imageDeltaStatsJson_, toPath1, StandardCopyOption.REPLACE_EXISTING)
 		}
@@ -71,12 +72,12 @@ public class ImageCollectionDifferRunner {
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
 		boolean result = imageCollectionDiffer.makeImageCollectionDifferences(
 				materialPairs,
-				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+				new TCaseName( GlobalVariable[ManagedGlobalVariable.CURRENT_TESTCASE_ID.getName()] ),
 				stats)
 		WebUI.comment("${ComparisonResultBundle.SERIALIZED_FILE_NAME} files will be saved into ${imageCollectionDiffer.getOutput()}")
 
 		// copy comparison-result-bundle.json file from Storage dir to the Materials dir to bring it visible in the Materials/index.html
-		Path toPath2 = mr_.resolveMaterialPath(GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()],ComparisonResultBundle.SERIALIZED_FILE_NAME)
+		Path toPath2 = mr_.resolveMaterialPath(GlobalVariable[ManagedGlobalVariable.CURRENT_TESTCASE_ID.getName()],ComparisonResultBundle.SERIALIZED_FILE_NAME)
 		Files.copy(imageCollectionDiffer.getOutput(), toPath2)
 		WebUI.comment("copied into ${toPath2}")
 
@@ -99,7 +100,7 @@ public class ImageCollectionDifferRunner {
 		List<MaterialPair> materialPairs = this.createMaterialPairs(this.mr_, capturingTSuiteName)
 		return imageCollectionDiffer.makeImageCollectionDifferences(
 				materialPairs,
-				new TCaseName( GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()] ),
+				new TCaseName( GlobalVariable[ManagedGlobalVariable.CURRENT_TESTCASE_ID.getName()] ),
 				criteriaPercentage)
 	}
 
@@ -110,9 +111,9 @@ public class ImageCollectionDifferRunner {
 	private ImageDeltaStats createImageDeltaStats(MaterialStorage ms,
 			TSuiteName capturingTSuiteName,
 			ChronosOptions options ) {
-		TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable[GVName.CURRENT_TESTSUITE_ID.getName()]        )
-		TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable[GVName.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
-		TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()]         )
+		TSuiteName tSuiteNameExam           = new TSuiteName(      GlobalVariable[ManagedGlobalVariable.CURRENT_TESTSUITE_ID.getName()]        )
+		TSuiteTimestamp tSuiteTimestampExam = new TSuiteTimestamp( GlobalVariable[ManagedGlobalVariable.CURRENT_TESTSUITE_TIMESTAMP.getName()] )
+		TCaseName  tCaseNameExam            = new TCaseName(       GlobalVariable[ManagedGlobalVariable.CURRENT_TESTCASE_ID.getName()]         )
 
 		Path previousIDS = StorageScanner.findLatestImageDeltaStats(ms, tSuiteNameExam, tCaseNameExam)
 		//

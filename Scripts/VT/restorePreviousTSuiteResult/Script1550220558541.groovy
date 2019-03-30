@@ -5,7 +5,7 @@ import com.kazurayam.materials.RetrievalBy.SearchContext
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.TSuiteResultId
 import com.kazurayam.materials.TSuiteTimestamp
-import com.kazurayam.visualtesting.GVName
+import com.kazurayam.visualtesting.ManagedGlobalVariable as MGV
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -18,8 +18,8 @@ import java.time.LocalDateTime
  */
 
 
-MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
-MaterialStorage    ms = (MaterialStorage)   GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
+MaterialRepository mr = (MaterialRepository)GlobalVariable[MGV.MATERIAL_REPOSITORY.getName()]
+MaterialStorage    ms = (MaterialStorage)   GlobalVariable[MGV.MATERIAL_STORAGE.getName()]
 TSuiteName tsn        = new TSuiteName(mr.getCurrentTestSuiteId()) 
 TSuiteTimestamp tst   = TSuiteTimestamp.newInstance(mr.getCurrentTestSuiteTimestamp())
 

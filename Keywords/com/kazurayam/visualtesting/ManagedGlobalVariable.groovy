@@ -15,42 +15,22 @@ import com.kms.katalon.core.testdata.TestData
 import com.kms.katalon.core.testobject.TestObject
 import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import com.kms.katalon.core.context.TestCaseContext
+
 import internal.GlobalVariable
 
-public class TestCaseContextImpl implements TestCaseContext {
+public enum ManagedGlobalVariable {
 
-	private String testCaseId_
-
-	TestCaseContextImpl(String testCaseId) {
-		this.testCaseId_ = testCaseId
+	CURRENT_TESTSUITE_ID        ('VT_CURRENT_TESTSUITE_ID'),
+	CURRENT_TESTSUITE_TIMESTAMP ('VT_CURRENT_TESTSUITE_TIMESTAMP'),
+	CURRENT_TESTCASE_ID         ('VT_CURRENT_TESTCASE_ID'),
+	MATERIAL_REPOSITORY         ('VT_MATERIAL_REPOSITORY'),
+	MATERIAL_STORAGE            ('VT_MATERIAL_STORAGE')
+	;
+	private String name_
+	public ManagedGlobalVariable(String name) {
+		this.name_ = name
 	}
-
-	@Override
-	public String getTestCaseId() {
-		return this.testCaseId_
-	}
-
-	@Override
-	public Map<String, Object> getTestCaseVariables() {
-		return new HashMap<String, Object>()
-	}
-
-	@Override
-	public String getTestCaseStatus() {
-		return "FIXME"
-	}
-
-	@Override
-	public String getMessage() {
-		return "FIXME"
-	}
-
-	@Override
-	public void skipThisTestCase() {}
-
-	@Override
-	public boolean isSkipped() {
-		return false
+	public String getName() {
+		return name_
 	}
 }

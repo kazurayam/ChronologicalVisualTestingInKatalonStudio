@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>GVNameTestRunner</name>
+   <name>ManagedGlobalVariableTestRunner</name>
    <tag></tag>
    <comment></comment>
    <testCaseGuid>5bd934f8-3004-42a7-ab80-86693e0bdf94</testCaseGuid>

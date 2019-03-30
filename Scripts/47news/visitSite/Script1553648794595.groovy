@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver
 
 import com.kazurayam.ksbackyard.ScreenshotDriver.Options
 import com.kazurayam.materials.MaterialRepository
-import com.kazurayam.visualtesting.GVName
+import com.kazurayam.visualtesting.ManagedGlobalVariable as MGV
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.testdata.TestData
@@ -46,7 +46,7 @@ def visitPage(MaterialRepository mr, URL url) {
 	
 	// resolve Path of output file based on the URL string
 	Path filePath = mr.resolveScreenshotPathByURLPathComponents(
-						GlobalVariable[GVName.CURRENT_TESTCASE_ID.getName()],
+						GlobalVariable[MGV.CURRENT_TESTCASE_ID.getName()],
 						url,
 						0,
 						'top')
@@ -68,7 +68,7 @@ def visitPage(MaterialRepository mr, URL url) {
 }
 
 // prepare environement
-MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
+MaterialRepository mr = (MaterialRepository)GlobalVariable[MGV.MATERIAL_REPOSITORY.getName()]
 
 // open browser
 WebUI.openBrowser('')

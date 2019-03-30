@@ -1,5 +1,5 @@
-import com.kazurayam.visualtesting.ImageCollectionDifferRunner
-import com.kazurayam.visualtesting.ImageCollectionDifferRunner.ChronosOptions
+import com.kazurayam.visualtesting.ImageCollectionDifferDriver
+import com.kazurayam.visualtesting.ImageCollectionDifferDriver.ChronosOptions
 
 /*
  * Declare parameters
