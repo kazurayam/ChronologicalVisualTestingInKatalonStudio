@@ -1,10 +1,11 @@
-import com.kazurayam.visualtesting.CollectiveImageDifferTest
-import com.kazurayam.visualtesting.CoreListenerTest
-import com.kazurayam.visualtesting.GVNameTest
 import com.kazurayam.visualtesting.GlobalVariableHelpersTest
+import com.kazurayam.visualtesting.ImageCollectionDifferDriverTest
+import com.kazurayam.visualtesting.ManagedGlobalVariableTest
+import com.kazurayam.visualtesting.VisualTestingListenerImplTest
 
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(CollectiveImageDifferTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(CoreListenerTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(GVNameTest.class)
 CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(GlobalVariableHelpersTest.class)
+CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ImageCollectionDifferDriverTest.class)
+CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ManagedGlobalVariableTest.class)
+CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(VisualTestingListenerImplTest.class)
 
+1

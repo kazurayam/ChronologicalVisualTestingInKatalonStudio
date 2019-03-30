@@ -29,8 +29,8 @@ public class GlobalVariableHelpers {
 		mc.'static'."${name}"       = value
 	}
 
-	static void addGlobalVariable(GVName gvName, Object value) {
-		addGlobalVariable(gvName.getName(), value)
+	static void addGlobalVariable(ManagedGlobalVariable mgv, Object value) {
+		addGlobalVariable(mgv.getName(), value)
 	}
 
 	/**
@@ -45,8 +45,8 @@ public class GlobalVariableHelpers {
 		return result
 	}
 
-	static boolean isGlobalVariablePresent(GVName gvName) {
-		return isGlobalVariablePresent(gvName.getName())
+	static boolean isGlobalVariablePresent(ManagedGlobalVariable mgv) {
+		return isGlobalVariablePresent(mgv.getName())
 	}
 
 	static Object getGlobalVariableValue(String name) {
@@ -57,9 +57,9 @@ public class GlobalVariableHelpers {
 		}
 	}
 
-	static Object getGlobalVariableValue(GVName gvName) {
-		if (isGlobalVariablePresent(gvName.getName())) {
-			return GlobalVariable[gvName.getName()]
+	static Object getGlobalVariableValue(ManagedGlobalVariable mgv) {
+		if (isGlobalVariablePresent(mgv.getName())) {
+			return GlobalVariable[mgv.getName()]
 		} else {
 			return null
 		}
@@ -74,13 +74,14 @@ public class GlobalVariableHelpers {
 	 */
 	static void ensureGlobalVariable(String name, Object value) {
 		if (isGlobalVariablePresent(name)) {
-			GlobalVariable[name] = value
+			//GlobalVariable[name] = value
+			addGlobalVariable(name, value)
 		} else {
 			addGlobalVariable(name, value)
 		}
 	}
 
-	static void ensureGlobalVariable(GVName gvName, Object value) {
-		ensureGlobalVariable(gvName.getName(), value)
+	static void ensureGlobalVariable(ManagedGlobalVariable mgv, Object value) {
+		ensureGlobalVariable(mgv.getName(), value)
 	}
 }

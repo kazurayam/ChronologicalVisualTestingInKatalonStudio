@@ -4,7 +4,7 @@ import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.MaterialStorage
 import com.kazurayam.materials.TSuiteName
 import com.kazurayam.materials.VisualTestingLogger
-import com.kazurayam.visualtesting.ImageCollectionDifferRunner.ChronosOptions
+import com.kazurayam.visualtesting.ImageCollectionDifferDriver.ChronosOptions
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.util.KeywordUtil
 
@@ -21,8 +21,8 @@ public class ImageDiffer {
 		/*
 		 * Prepare runtime environment
 		 */
-		MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
-		MaterialStorage    ms = (MaterialStorage)GlobalVariable[GVName.MATERIAL_STORAGE.getName()]
+		MaterialRepository mr = (MaterialRepository)GlobalVariable[ManagedGlobalVariable.MATERIAL_REPOSITORY.getName()]
+		MaterialStorage    ms = (MaterialStorage)GlobalVariable[ManagedGlobalVariable.MATERIAL_STORAGE.getName()]
 		assert mr != null
 		assert ms != null
 
@@ -32,11 +32,11 @@ public class ImageDiffer {
 		 *     'Materials/<current TSuiteName>/<current Timestamp>/<cuurent TCaseName>'
 		 */
 
-		ImageCollectionDifferRunner runner = new ImageCollectionDifferRunner(mr)
+		ImageCollectionDifferDriver driver = new ImageCollectionDifferDriver(mr)
 		VisualTestingLogger logger = new VisualTestingLoggerImpl()
-		runner.setVisualTestingLogger(logger)
+		driver.setVisualTestingLogger(logger)
 
-		boolean result = runner.chronos(new TSuiteName(testSuiteId), ms, options)
+		boolean result = driver.chronos(new TSuiteName(testSuiteId), ms, options)
 
 		if (! result ) {
 			KeywordUtil.markFailed("One or more pairs of screenshot are different.")

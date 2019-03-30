@@ -1,3 +1,0 @@
-import com.kazurayam.visualtesting.CollectiveImageDifferTest
-
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(CollectiveImageDifferTest.class)

@@ -1,7 +1,7 @@
 import com.kazurayam.materials.Material
 import com.kazurayam.materials.MaterialRepository
 import com.kazurayam.materials.TSuiteResult
-import com.kazurayam.visualtesting.GVName
+import com.kazurayam.visualtesting.ManagedGlobalVariable
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 import internal.GlobalVariable as GlobalVariable
@@ -9,7 +9,7 @@ import internal.GlobalVariable as GlobalVariable
 /**
  * listRepository
  */
-MaterialRepository mr = (MaterialRepository)GlobalVariable[GVName.MATERIAL_REPOSITORY.getName()]
+MaterialRepository mr = (MaterialRepository)GlobalVariable[ManagedGlobalVariable.MATERIAL_REPOSITORY.getName()]
 
 List<TSuiteResult> tsrList = mr.getTSuiteResultList()
 
