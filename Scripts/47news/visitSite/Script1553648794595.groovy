@@ -31,12 +31,12 @@ def visitPage(MaterialRepository mr, URL url) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
 	WebUI.verifyElementPresent(findTestObject('47news/div_partners'), 10)
-	WebUI.delay(1)
+	//WebUI.delay(1)
 	
 	// move mouse cursor off photos. this is necessary because this site
 	// reacts against events mouse over photos and images get a bit dark
-	WebUI.mouseOver(findTestObject('Object Repository/47news/div_global-nav'),
-					FailureHandling.OPTIONAL)
+	//WebUI.mouseOver(findTestObject('Object Repository/47news/div_global-nav'),
+	//				FailureHandling.OPTIONAL)
 	
 	// modify the style of <div class="global-nav fixed"> to have position:static
 	// to make the screenshot pretty looking
@@ -64,7 +64,7 @@ def visitPage(MaterialRepository mr, URL url) {
 		filePath.toFile(),
 		options)
 	
-	WebUI.comment("visited ${url}, screenshot into ${filePath.toString()}")
+	//WebUI.comment("visited ${url}, screenshot into ${filePath.toString()}")
 }
 
 // prepare environement
@@ -80,9 +80,9 @@ WebUI.setViewPortSize(1100, 800)
 TestData testData = TestDataFactory.findTestData('URLs')
 List<List<Object>> allData = testData.getAllData()
 for (int index = 0; index < allData.size(); index++) {
-	//if (DEBUG_MODE == true && index > MAX_LINES_DEBUG) {
-	//	break;
-	//}
+	if (DEBUG_MODE == true && index > DEBUG_MAX_PAGES - 1) {
+		break;
+	}
 	List<Object> line = allData.get(index)
 	String url = (String)line.get(0)    // e.g, 'https://www.47news.jp/'
     // visit the url and take its screenshot
