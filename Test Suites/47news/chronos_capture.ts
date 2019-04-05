@@ -40,10 +40,4 @@
       <isRun>true</isRun>
       <testCaseId>Test Cases/47news/restorePreviousScreenshots</testCaseId>
    </testCaseLink>
-   <testCaseLink>
-      <guid>57242f2e-b75b-4f4f-8ea0-12380d28af0a</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/VT/makeIndex</testCaseId>
-   </testCaseLink>
 </TestSuiteEntity>
