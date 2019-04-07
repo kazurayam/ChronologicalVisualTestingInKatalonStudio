@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalVariableEntities>
    <description></description>
-   <name>default</name>
+   <name>DevelopmentEnv</name>
    <tag></tag>
-   <defaultProfile>true</defaultProfile>
+   <defaultProfile>false</defaultProfile>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'http://www.47news.jp'</initValue>
+      <initValue>'https://www.47news.jp'</initValue>
       <name>URL_PREFIX</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>
