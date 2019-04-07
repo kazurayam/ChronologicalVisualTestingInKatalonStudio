@@ -76,6 +76,9 @@ WebUI.openBrowser('')
 // set appropriate window size
 WebUI.setViewPortSize(1100, 700)
 
+assert GlobalVariable.URL_PREFIX != null
+String urlPrefix = GlobalVariable.URL_PREFIX
+
 // iterate over URLs listed in the URLs.csv file
 TestData testData = TestDataFactory.findTestData('URL_SUBPATHS')
 List<List<Object>> allData = testData.getAllData()
@@ -84,7 +87,7 @@ for (int index = 0; index < allData.size(); index++) {
 		break;
 	}
 	List<Object> line = allData.get(index)
-	String url = 'https://www.47news.jp' + (String)line.get(0)    // e.g, 'https://www.47news.jp' + '/news'
+	String url = urlPrefix + (String)line.get(0)    // e.g, 'https://www.47news.jp' + '/news'
     // visit the url and take its screenshot
 	visitPage(mr, new URL(url))
 }
