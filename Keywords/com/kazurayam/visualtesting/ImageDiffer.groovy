@@ -55,7 +55,7 @@ public class ImageDiffer {
 		 */
 		MaterialRepository mr = (MaterialRepository)GlobalVariable[ManagedGlobalVariable.MATERIAL_REPOSITORY.getName()]
 		assert mr != null
-		
+
 		/*
 		 * make image diffs, write the result into the directory
 		 *     'Materials/47news.chronos_exam/yyyyMMdd_hhmmss/ImageDiff_new' which is
