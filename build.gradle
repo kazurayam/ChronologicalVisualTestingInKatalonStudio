@@ -1,0 +1,49 @@
+task createVTComponentsDistributable(type: Zip) {
+    archiveFileName = "visualtesting-components.zip"
+    destinationDirectory = file("$buildDir/dist")
+
+    from(".") {
+        // include the gradle wrapper
+        include ".gradle"
+        include "gradlew"
+	include "gradlew.bat"
+	include "gradle/**/*"
+    }
+
+    // include Visual Testing components
+    from (".") {
+    	include "drivers.gradle"
+        include "Test Cases/VT/**"
+	include "Scripts/VT/**"
+	include "Test Listeners/*"
+	include "Test Suites/VT/**"
+	include "Keywords/com/kazurayam/visualtesting/**"
+	include "run-console-mode.*"
+    }
+
+    // include .gitignore
+    from (".") {
+        include ".gitignore"
+    }
+}
+
+task createCapturingExampleDistributable(type: Zip) {
+    archiveFileName = "visualtesting-capturing-example.zip"
+    destinationDirectory = file("$buildDir/dist")
+    
+    // include example : capturing and examining 47news
+    from(".") {
+        include "Object Repository/47news/**"
+        include "Test Cases/47news/**"
+	include "Scripts/47news/**"
+	include "Test Suites/47news/**"
+	include "Profiles/**"
+	include "Data Files/URL_SUBPATHS*"
+        include "Include/resources/URL_SUBPATHS*"
+    }
+}
+
+task distributables() {
+    dependsOn 'createVTComponentsDistributable'
+    dependsOn 'createCapturingExampleDistributable'
+}
