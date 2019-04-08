@@ -2,7 +2,7 @@ import com.kazurayam.visualtesting.ImageCollectionDifferDriver
 import com.kazurayam.visualtesting.ImageCollectionDifferDriver.ChronosOptions
 
 /*
- * Declare parameters
+ * 47news/ImageDiff_chronos
  */
 String TESTSUITE_ID = '47news/chronos_capture'
 ChronosOptions options = new ChronosOptions.Builder().

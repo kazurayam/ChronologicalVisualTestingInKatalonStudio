@@ -32,7 +32,7 @@ def visitPage(MaterialRepository mr, URL url) {
 	// navigate to the Google form page
 	WebUI.navigateToUrl(url.toExternalForm())
 	WebUI.verifyElementPresent(findTestObject('47news/div_partners'), 10)
-	WebUI.delay(1)
+	//WebUI.delay(1)
 	
 	// move mouse cursor off photos. this is necessary because this site
 	// reacts against events mouse over photos and images get a bit dark
@@ -80,17 +80,20 @@ MaterialRepository mr = (MaterialRepository)GlobalVariable[MGV.MATERIAL_REPOSITO
 WebUI.openBrowser('')
 
 // set appropriate window size
-WebUI.setViewPortSize(1100, 800)
+WebUI.setViewPortSize(1100, 700)
+
+assert GlobalVariable.URL_PREFIX != null
+String urlPrefix = GlobalVariable.URL_PREFIX
 
 // iterate over URLs listed in the URLs.csv file
-TestData testData = TestDataFactory.findTestData('URLs')
+TestData testData = TestDataFactory.findTestData('URL_SUBPATHS')
 List<List<Object>> allData = testData.getAllData()
 for (int index = 0; index < allData.size(); index++) {
 	if (DEBUG_MODE == true && index >= MAX_LINES_DEBUG) {
 		break;
 	}
 	List<Object> line = allData.get(index)
-	String url = (String)line.get(0)    // e.g, 'https://www.47news.jp/'
+	String url = urlPrefix + (String)line.get(0)    // e.g, 'https://www.47news.jp' + '/news'
     // visit the url and take its screenshot
 	visitPage(mr, new URL(url))
 }
