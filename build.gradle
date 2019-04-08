@@ -1,4 +1,4 @@
-task createDistributableOfComponents(type: Zip) {
+task createVTComponentsDistributable(type: Zip) {
     archiveFileName = "visualtesting-components.zip"
     destinationDirectory = file("$buildDir/dist")
 
@@ -20,10 +20,15 @@ task createDistributableOfComponents(type: Zip) {
 	include "Keywords/com/kazurayam/visualtesting/**"
 	include "run-console-mode.*"
     }
+
+    // include .gitignore
+    from (".") {
+        include ".gitignore"
+    }
 }
 
-task createDistributableOfExample(type: Zip) {
-    archiveFileName = "visualtesting-example.zip"
+task createCapturingExampleDistributable(type: Zip) {
+    archiveFileName = "visualtesting-capturing-example.zip"
     destinationDirectory = file("$buildDir/dist")
     
     // include example : capturing and examining 47news
@@ -36,4 +41,9 @@ task createDistributableOfExample(type: Zip) {
 	include "Data Files/URL_SUBPATHS*"
         include "Include/resources/URL_SUBPATHS*"
     }
+}
+
+task distributables() {
+    dependsOn 'createVTComponentsDistributable'
+    dependsOn 'createCapturingExampleDistributable'
 }
